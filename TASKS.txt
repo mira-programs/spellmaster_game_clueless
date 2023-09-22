@@ -4,7 +4,7 @@ readSpells():
   a) takes the name of a text file
   b) prints the spells in a table format with 5 words per line separated by tab spaces
   c) returns a (pointer to a) 2D array containing the spells from the file in one column and 1’s in the other
-note: the 2D array acts as a hashmap, with the spell name as the key and the binary (0,1) to show whether the spell has been used before. the spells will have initially have 1 as the corresponding value
+note: the 2D array acts as a hashmap, with the spell name as the key and the binary (0,1) to show whether the spell has been used before. the spells will have initially have 0 as the corresponding value
 
 tossCoin(): 
   a) takes the player names as parameters
@@ -21,3 +21,7 @@ checkMove():
               b) if the characters are different, return “the spell cast begins with the wrong character! the current player loses!”
       ii) if the spell is not found, returns “the spell cast is not in the list! the current player loses!”
 
+EDITS:
+1- the 2D array containing the spells should be a 2D array of strings, since we cannot have mixed datatypes in C
+  and the indicator for whether the spell has been used or not can just be "cast" and "uncast",
+  OR alternatively just a string of either "0" (not used) and "1" (used).
