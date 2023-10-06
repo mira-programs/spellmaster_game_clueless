@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct elements
+typedef struct Element elements;
+struct Element
 {
     char name[50];
     int used;
@@ -34,11 +35,11 @@ int getRowNumber(char fileName[])
     return lines;
 }
 
-struct elements *createAndFill(char fileName[], int rowNumber)
+elements *createAndFill(char fileName[], int rowNumber)
 {
     FILE *sptr;
     int maxLength = 50; // string maximum number of character
-    struct elements *spell = (struct elements *)malloc(sizeof(struct elements) * rowNumber);
+    elements *spell = (elements *)malloc(sizeof(elements) * rowNumber);
     sptr = fopen("spells.txt", "r");
     if (sptr == NULL)
     {
@@ -56,7 +57,7 @@ struct elements *createAndFill(char fileName[], int rowNumber)
     return spell;
 }
 
-void printArray(struct elements *spell, int rows, int columns)
+void printArray(elements *spell, int rows, int columns)
 {
     for (int i = 0; i < rows; i++)
     {
