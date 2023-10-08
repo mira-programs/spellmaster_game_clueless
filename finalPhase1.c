@@ -5,6 +5,7 @@ clueless ~ Mira Hussein, Haya Mouneimne, Mariam Sonji
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 //defining a custom datatype to store the spells and whether they have been used
 typedef struct Element elements;
@@ -123,7 +124,7 @@ int runGame(char player1[], char player2[], elements *spell, int row){
     //starting the game with first player
     printf("%s starts!\nEnter your first move: ", player1);
     scanf("%s", move);
-    char result[] = checkMove(spell, row, prev, move);
+    result = checkMove(spell, row, prev, move);
 
     //continuing the game with second player
     while (strcmp(result, "valid spell!") == 0)
@@ -132,7 +133,7 @@ int runGame(char player1[], char player2[], elements *spell, int row){
         prev = move[strlen(move)-1];
         printf("%s starts!\nEnter your first move: ", player1);
         scanf("%s", move);
-        char result[] = checkMove(spell, row, prev, move);
+        result = checkMove(spell, row, prev, move);
         if(strcmp(result, "valid spell!") != 0){
             printf("%s\n%s loses! %s wins! congratulations!", result, player2, player1);
             return 1; //player 1 wins
