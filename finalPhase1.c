@@ -119,24 +119,26 @@ int runGame(char player1[], char player2[], elements *spell, int row){
 
     char prev = ' ';
     char move[50];
-    char result[50];
     
     //starting the game with first player
     printf("%s starts!\nEnter your first move: ", player1);
     scanf("%s", move);
-    result = checkMove(spell, row, prev, move);
+    char result1[] = checkMove(spell, row, prev, move);
 
     //continuing the game with second player
-    while (strcmp(result, "valid spell!") == 0)
+    while (strcmp(result1, "valid spell!") == 0)
     {
-        printf("%s\n%s's turn!\n", result, player2);
+        printf("%s\n%s's turn!\n", result1, player2);
         prev = move[strlen(move)-1];
-        printf("%s starts!\nEnter your first move: ", player1);
+        printf("%s! Enter your next move: ", player1);
         scanf("%s", move);
-        result = checkMove(spell, row, prev, move);
-        if(strcmp(result, "valid spell!") != 0){
-            printf("%s\n%s loses! %s wins! congratulations!", result, player2, player1);
+        char result2[] = checkMove(spell, row, prev, move);
+        if(strcmp(result1, "valid spell!") != 0){
+            printf("%s\n%s loses! %s wins! congratulations!", result1, player2, player1);
             return 1; //player 1 wins
+        }else{
+            printf("%s!\nEnter your next move: ", player1);
+            scanf("%s", move);
         }
     }
     printf("%s\n%s loses! %s wins! congratulations!", result, player1, player2); //player 2 wins
