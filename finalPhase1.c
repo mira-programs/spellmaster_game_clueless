@@ -4,6 +4,7 @@ clueless ~ Mira Hussein, Haya Mouneimne, Mariam Sonji
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 //defining a custom datatype to store the spells and whether they have been used
 typedef struct Element elements;
