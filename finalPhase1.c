@@ -95,6 +95,8 @@ char *checkMove(elements *spell, int spellCount, char previousChar, char move[])
                 if (move[0] != previousChar && previousChar != ' ') // checks the first char against the previous char
                 {                      
                     return "spell starts with the wrong character! you lose!"; // update validity
+                }else{
+                    return "valid spell!";
                 }
                 // note that it keeps the wasCast variable to 0 since it was not previously cast till now
             }
@@ -105,6 +107,7 @@ char *checkMove(elements *spell, int spellCount, char previousChar, char move[])
 
 }
 int coinToss() { //function to decide which player goes first by 'tossing a coin' by generating a random number
+    srand(time(NULL)); //seed with the current time to get different results at different runs
     int randomnumber;
     randomnumber = rand() % 2;
     return randomnumber;
@@ -149,7 +152,6 @@ int main()
     printArray(spell, row, 5);
 
     //tossing the coin to decide which player begins
-    srand(time(NULL)); //seed with the current time to get different results at different runs
     int randNum = coinToss();
     if(randNum == 0){
         runGame(player1, player2, spell, row);
