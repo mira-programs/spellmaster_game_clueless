@@ -45,6 +45,7 @@ int getRowNumber(char fileName[])
 
 elements *createAndFill(char fileName[], int rowNumber)
 {
+
     FILE *sptr;
     int maxLength = 50; // string maximum number of character
     elements *spell = (elements *)malloc(sizeof(elements) * rowNumber);
@@ -75,7 +76,6 @@ void printArray(elements *spell, int rows, int columns)
             printf("\n");
         }
     }
-    free(spell);
 }
 
 int checkMove(elements *spell, int spellCount, char previousChar, char move[])
@@ -103,7 +103,6 @@ int checkMove(elements *spell, int spellCount, char previousChar, char move[])
                     return 1; //returns 1 for valid spell
                 }
             }
-            break; // ends the loop since the spell was found
         }
     }
     printf("spell is not in the list! you lose!\n");
@@ -132,7 +131,7 @@ int runGame(char player1[], char player2[], elements *spell, int row){
     {
         printf("%s's turn!\n", player2);
         prev = move[strlen(move)-1];
-        printf("%s! Enter your next move: ", player1);
+        printf("%s! Enter your next move: ", player2);
         scanf("%s", move);
         int result2 = checkMove(spell, row, prev, move);
         if(result2 == -1){
@@ -151,7 +150,6 @@ int runGame(char player1[], char player2[], elements *spell, int row){
 
 int main()
 {
-    
 
     printf("Welcome to the Spell Master game!\n"); //welcome message
 
