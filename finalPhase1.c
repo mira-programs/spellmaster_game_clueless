@@ -78,9 +78,8 @@ void printArray(elements *spell, int rows, int columns)
     free(spell);
 }
 
-char *checkMove(elements *spell, int spellCount, char previousChar, char move[])
+int checkMove(elements *spell, int spellCount, char previousChar, char move[])
 {
-
     // looping through the rows (spells); checks if it was found and if it was cast
     for (int i = 0; i < spellCount; i++)
     {
@@ -89,23 +88,26 @@ char *checkMove(elements *spell, int spellCount, char previousChar, char move[])
         {                // if the spell is found, goes on to check if it has been used
             if (spell[i].used == 1)
             {                // if the spell has been used before
-                return "spell was already used! you lose!";
+                printf("spell was already used! you lose!\n");
+                return -1;
             }
             else
             {
                 spell[i].used = 1; // if the spell was not used before, modifies array to update it
                 if (move[0] != previousChar && previousChar != ' ') // checks the first char against the previous char
                 {                      
-                    return "spell starts with the wrong character! you lose!"; // update validity
+                    printf("spell starts with the wrong character! you lose!\n");
+                    return -1;
                 }else{
-                    return "valid spell!";
+                    printf("valid spell!\n");
+                    return 1; //returns 1 for valid spell
                 }
-                // note that it keeps the wasCast variable to 0 since it was not previously cast till now
             }
             break; // ends the loop since the spell was found
         }
     }
-    return "spell is not in the list! you lose!";
+    printf("spell is not in the list! you lose!\n");
+    return -1;
 
 }
 int coinToss() { //function to decide which player goes first by 'tossing a coin' by generating a random number
@@ -123,28 +125,29 @@ int runGame(char player1[], char player2[], elements *spell, int row){
     //starting the game with first player
     printf("%s starts!\nEnter your first move: ", player1);
     scanf("%s", move);
-    char result1[] = checkMove(spell, row, prev, move);
+    int result1 = checkMove(spell, row, prev, move);
 
     //continuing the game with second player
-    while (strcmp(result1, "valid spell!") == 0)
+    while (result1 == 1)
     {
-        printf("%s\n%s's turn!\n", result1, player2);
+        printf("%s's turn!\n", player2);
         prev = move[strlen(move)-1];
         printf("%s! Enter your next move: ", player1);
         scanf("%s", move);
-        char result2[] = checkMove(spell, row, prev, move);
-        if(strcmp(result1, "valid spell!") != 0){
-            printf("%s\n%s loses! %s wins! congratulations!", result1, player2, player1);
-            return 1; //player 1 wins
+        int result2 = checkMove(spell, row, prev, move);
+        if(result2 == -1){
+            printf("%s loses! %s wins! congratulations!", player2, player1);
+            return 0; //player 1 wins
         }else{
             printf("%s!\nEnter your next move: ", player1);
             scanf("%s", move);
         }
     }
     printf("%s\n%s loses! %s wins! congratulations!", result1, player1, player2); //player 2 wins
-    return 0;
+    return 1;
 
 }
+
 
 int main()
 {
@@ -174,8 +177,6 @@ int main()
         runGame(player2, player1, spell, row);
     }
 
-
     return 0;
-
 
 }
