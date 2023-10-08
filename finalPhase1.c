@@ -143,7 +143,7 @@ int runGame(char player1[], char player2[], elements *spell, int row){
             scanf("%s", move);
         }
     }
-    printf("%s\n%s loses! %s wins! congratulations!", result1, player1, player2); //player 2 wins
+    printf("%s loses! %s wins! congratulations!", player1, player2); //player 2 wins
     return 1;
 
 }
