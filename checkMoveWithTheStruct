@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <string.h>
+#include "readSpells.h"
+
+// function to check the validity and result of a move
+char *checkMove(elements *spell, int spellCount, char previousChar, char move[])
+{
+
+    // creating integers to record if the spell is in the list, was not cast before, and starts with the right char
+    int isFound = 0;
+    int wasCast = 0;
+    int isCorrectChar = 1;
+    int isValid = 1;
+    // looping through the rows (spells); checks if it was found and if it was cast
+    for (int i = 0; i < spellCount; i++)
+    {
+        // checking if the spell cast is in the list
+        if (strcmp(spell[i].name, move) == 0)
+        {                // if the spell is found, goes on to check if it has been used
+            isFound = 1; // updates that it has been found
+            if (spell[i].used == 1)
+            {                // if the spell has been used before
+                wasCast = 1; // updates that it was already cast before
+                isValid = 0; // update that the spell is invalid
+            }
+            else
+            {
+                spell[i].used = 1; // if the spell was not used before, modifies array to update it
+                // note that it keeps the wasCast variable to 0 since it was not previously cast till now
+            }
+            break; // ends the loop since the spell was found
+        }
+    }
+    // checks if the first character was correct
+    if (move[0] != previousChar && previousChar != ' ') //H: I DONT GET THIS PART
+    {                      // checks the first char against the previous char
+        isCorrectChar = 0; // if they are different, updates the information
+        isValid = 0;
+        return "spell starts with the wrong character! you lose!"; // update validity
+    }
+    // final checks for validity 
+    if (isValid == 1 && isCorrectChar == 1)
+    {
+        return "valid spell!";
+    }
+    else if (isFound == 0)
+    {
+        return "spell is not in the list! you lose!";
+    }
+    else if (wasCast == 1)
+    {
+        return "spell was already used! you lose!";
+    }
+    else if (isCorrectChar == 0)
+    {
+        return "spell starts with the wrong character! you lose!";
+    }
+    else
+    {
+        return "error";
+    }
+}
