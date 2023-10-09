@@ -75,6 +75,7 @@ void printArray(elements *spell, int rows, int columns)
         {
             printf("\n");
         }
+        printf("\n");
     }
 }
 
@@ -140,6 +141,8 @@ int runGame(char player1[], char player2[], elements *spell, int row){
         }else{
             printf("%s!\nEnter your next move: ", player1);
             scanf("%s", move);
+            result1 = checkMove(spell, row, prev, move);
+            prev = move[strlen(move)-1];
         }
     }
     printf("%s loses! %s wins! congratulations!", player1, player2); //player 2 wins
