@@ -1,15 +1,18 @@
 #include <string.h>
 
 // defining a custom datatype to store the spells and whether they have been used
-typedef struct Element elements;
+typedef struct Element elements; 
 struct Element
 {
     char name[50];
     int used;
 };
-
+/*
+    Precondition: String file name
+    PostCondition: returns the number of lines in the file (used in printing the array)
+    */
 int getRowNumber(char fileName[])
-{
+{ //only used for the print part, getting the row number actually happens in the second part 
     FILE *sptr;
     sptr = fopen(fileName, "r");
     if (sptr == NULL)
@@ -35,7 +38,10 @@ int getRowNumber(char fileName[])
     fclose(sptr);
     return lines - 1;
 }
-
+/*
+    Precondition: 
+    PostCondition:
+    */
 elements *createAndFill(char fileName[])
 {
 
@@ -58,7 +64,10 @@ elements *createAndFill(char fileName[])
     fclose(sptr);
     return spell;
 }
-
+/*
+    Precondition:
+    PostCondition:
+    */
 void printArray(elements *spell, int rows, int columns)
 {
     for (int i = 0; i < rows; i++)
