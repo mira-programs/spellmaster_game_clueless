@@ -46,7 +46,6 @@ elements *createAndFill(char fileName[])
 {
 
     FILE *sptr;
-    int maxLength = 50; // string maximum number of character
     sptr = fopen("spells.txt", "r");
     if (sptr == NULL)
     {
