@@ -108,7 +108,7 @@ void inorder(struct node *root) {
  
 //temp main to test AVL tree
 int main() {
-    struct node *root = NULL;
+    node *root = NULL;
  
     root = insert(root, "a");
     root = insert(root, "b");
