@@ -16,7 +16,7 @@ node* newNode(char* s){ //creates a new node. s is the spell being added
     n->left = NULL; //initializes pointers to left and right children to NULL
     n->right = NULL;
     n->height = 1; //initializes height to 1
-    n->used = 0;
+    n->used = 0; //initializes used to 0, initially all spells are not cast yet
     return n;
 }
 
@@ -161,14 +161,4 @@ node* delete(node* root, char* spell){
     }
 
     return root;
-}
-
-
-//printing inorder traversal of tree
-void inorder(node *root) {
-    if (root != NULL) {
-        inorder(root->left);
-        printf("%s \n", root->spell);
-        inorder(root->right);
-    }
 }

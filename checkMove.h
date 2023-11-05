@@ -1,4 +1,5 @@
-#include "fillTree.h"
+#include "BST.h"
+
 int checkMove(elements *spell, int spellCount, char previousChar, char move[])
 {
     // looping through the rows (spells); checks if it was found and if it was cast
