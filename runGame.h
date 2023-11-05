@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "checkMove.h"
-int runGame(char player1[], char player2[], elements *spell, int row)
+int runGame(char player1[], char player2[], node* spellsTreeRoot)
 {
 
     char prev = ' ';
