@@ -3,19 +3,19 @@
 #include <stdlib.h>
 #include "BST.h"
 
-int printInOrder(node* root, int printed) { //helper function to print the spells by inorder traversal
+int printInOrder(node* root, int printed, int spellCount) { //helper function to print the spells by inorder traversal
     if (root != NULL) {
         //recursive call for left tree
-        printed = printInOrder(root->left, printed);
+        printed = printInOrder(root->left, printed, spellCount);
         //print the spell and increment the number of spells printed
         printf("%s\t", root->spell);
         printed++;
         //check if a multiple of 5 spells has been printed, print a new line if yes
-        if (printed % 5 == 0) {
+        if (printed % 5 == 0 || printed == spellCount) {
             printf("\n");
         }
         //recurvise call for right tree
-        printed = printInOrder(root->right, printed);
+        printed = printInOrder(root->right, printed, spellCount);
     }
     return printed;
 }
@@ -43,6 +43,6 @@ node* createAndPrintTree(char* fileName){ //function to create and fill a BST wi
     }
     
     fclose(filePointer); //closes the file
-    printInOrder(root, 0);
+    printInOrder(root, 0, spellCount);
     return root; //returns the root of the 
 }

@@ -98,6 +98,72 @@ node* insert(node* root, char* spell){ //recursively insert a new node, passing 
     return root; //returns the root pointer
 }
 
+node* search(node* root, char* spell){ //recursive search function to find a spell in the tree
+    if(root == NULL || strcmp(root->spell, spell) == 0)
+        return root; //returns the node with the spell if found, otherwise will be NULL
+    if(strcmp(root->spell, spell) > 0)
+        return search(root->left, spell);
+    else return search(root->right, spell);
+}
+
+node* delete(node* root, char* spell){
+    if (root == NULL) //if spell to be deleted is not in tree, returns root as-is
+        return root;
+
+    //recursively calling the delete function to find node to be deleted
+    if (strcmp(spell, root->spell) < 0){
+        root->left = delete(root->left, spell);
+    } else if (strcmp(spell, root->spell) > 0) {
+        root->right = delete(root->right, spell);
+    } else{ //when the node is found, this part deletes it
+        if (root->left == NULL) {
+            node* temp = root->right;
+            free(root);
+            return temp;
+        } else if (root->right == NULL) {
+            node* temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        node* temp = root->right;
+        while (temp->left != NULL) {
+            temp = temp->left;
+        }
+
+        root->spell = temp->spell;
+        root->right = delete(root->right, temp->spell);
+    }
+
+    if (root == NULL) {
+        return root;
+    }
+
+    root->height = max(height(root->left), height(root->right)) + 1; //updating height of the root node
+
+    //balancing the tree
+    int balance = getBalance(root);
+    //left-left case
+    if (balance > 1 && strcmp(spell, root->left->spell) < 0)
+        return rightRotate(root);
+    //right-right case
+    if (balance < -1 && strcmp(spell, root->right->spell) > 0)
+        return leftRotate(root);
+    //left-right case
+    if (balance > 1 && strcmp(spell, root->left->spell) > 0) {
+        root->left = leftRotate(root->left);
+        return rightRotate(root);
+    }
+    //right-left case
+    if (balance < -1 && strcmp(spell, root->right->spell) < 0) {
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
+
+    return root;
+}
+
+
 //printing inorder traversal of tree
 void inorder(node *root) {
     if (root != NULL) {
