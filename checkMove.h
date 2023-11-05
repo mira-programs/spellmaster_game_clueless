@@ -1,34 +1,24 @@
 #include "BST.h"
 
-int checkMove(elements *spell, int spellCount, char previousChar, char move[])
-{
-    // looping through the rows (spells); checks if it was found and if it was cast
-    for (int i = 0; i < spellCount; i++)
-    {
-        // checking if the spell cast is in the list
-        if (strcmp(spell[i].name, move) == 0)
-        { // if the spell is found, goes on to check if it has been used
-            if (spell[i].used == 1)
-            { // if the spell has been used before
-                printf("spell was already used! you lose!\n");
+int checkMove(node* spellTree, char previousChar, char* spell){
+    //searching the tree for the spell that was cast
+    node* move = search(spellTree,spell);
+    if(move != NULL){ //if found...
+        if(move->used == 1){ //if spell was cast before (invalid)
+            printf("spell was already used! you lose!\n");
+            return -1;
+        }else{ //if spell was not cast before (valid)
+            delete(spellTree, move); //deletes the spell from the tree
+            if(spell[0] != previousChar && previousChar != ' '){ //if spell starts with the wrong char (invalid)
+                printf("spell starts with the wrong character! you lose!\n");
                 return -1;
-            }
-            else
-            {
-                spell[i].used = 1;                                  // if the spell was not used before, modifies array to update it
-                if (move[0] != previousChar && previousChar != ' ') // checks the first char against the previous char
-                {
-                    printf("spell starts with the wrong character! you lose!\n");
-                    return -1;
-                }
-                else
-                {
-                    printf("valid spell!\n");
-                    return 1; // returns 1 for valid spell
-                }
+            }else{ //if spell is valid
+                printf("valid spell!\n");
+                return 1; // returns 1 for valid spell
             }
         }
+    }else{ //if the spell is not found...
+        printf("spell is not in the list! you lose!\n");
+        return -1;
     }
-    printf("spell is not in the list! you lose!\n");
-    return -1;
 }
