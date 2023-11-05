@@ -107,7 +107,7 @@ node* search(node* root, char* spell){ //recursive search function to find a spe
 }
 
 node* delete(node* root, char* spell){
-    if (root == NULL) //if spell to be deleted is not in tree, returns root as-is
+    if (root == NULL) //if spell to be deleted is not in tree, returns NULL
         return root;
 
     //recursively calling the delete function to find node to be deleted
