@@ -4,11 +4,11 @@
 
 typedef struct node { //defines a BST node
     char* spell;
+    int used; //used variable indicates if spell was cast before. set to 1 if cast before, 0 otherwise
     struct node* left;
     struct node* right;
     int height;
 }node;
-
 
 node* newNode(char* s){ //creates a new node. s is the spell being added
     node* n = (node*)malloc(sizeof(node)); //creates pointer to new node n and allocates memory
@@ -16,6 +16,7 @@ node* newNode(char* s){ //creates a new node. s is the spell being added
     n->left = NULL; //initializes pointers to left and right children to NULL
     n->right = NULL;
     n->height = 1; //initializes height to 1
+    n->used = 0;
     return n;
 }
 
@@ -70,7 +71,7 @@ node* insert(node* root, char* spell){ //recursively insert a new node, passing 
         return newNode(spell); //base case: creates the node
     else if(strcmp(spell, root->spell) < 0) //compares the spells of the root and new node
         root->left = insert(root->left,spell); //insert to the left if the new spell comes first
-    else 
+    else
         root->right = insert(root->right,spell); //insert to the right if the root spell comes first
 
     root->height = max(height(root->left), height(root->right)) + 1; //updating height of the root nodes
@@ -93,35 +94,15 @@ node* insert(node* root, char* spell){ //recursively insert a new node, passing 
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }
- 
-    return root; //returns the (unchanged) root pointer
+
+    return root; //returns the root pointer
 }
 
 //printing inorder traversal of tree
-void inorder(struct node *root) {
+void inorder(node *root) {
     if (root != NULL) {
         inorder(root->left);
-        printf("%s ", root->spell);
+        printf("%s \n", root->spell);
         inorder(root->right);
     }
 }
- 
-//temp main to test AVL tree
-int main() {
-    node *root = NULL;
- 
-    root = insert(root, "a");
-    root = insert(root, "b");
-    root = insert(root, "c");
-    root = insert(root, "d");
-    root = insert(root, "e");
-    root = insert(root, "f");
-
- 
-    printf("in order traversal of the avl tree is \n");
-    inorder(root);
- 
-    return 0;
-}
-
-
