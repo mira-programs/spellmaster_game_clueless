@@ -30,8 +30,8 @@ int main(){
     // tossing the coin to decide which player begins, and starting the game accordingly
     int randNum = coinToss();
     if (randNum == 0)
-        runGame(player1, player2, spellsTreeRoot);
+        runGame(player1, player2, spell, row);
     else
-        runGame(player2, player1, spellsTreeRoot);
+        runGame(player2, player1, spell, row);
     return 0;
 }

@@ -3,16 +3,16 @@
 #include <string.h>
 
 typedef struct node { //defines a BST node
-    char* spell;
     int used; //used variable indicates if spell was cast before. set to 1 if cast before, 0 otherwise
     struct node* left;
     struct node* right;
     int height;
+    char spell[];
 }node;
 
-node* newNode(char* s){ //creates a new node. s is the spell being added
+node* newNode(char s[]){ //creates a new node. s is the spell being added
     node* n = (node*)malloc(sizeof(node)); //creates pointer to new node n and allocates memory
-    n->spell = s; //defines the new node with the new spell
+    strcpy(n->spell, s); //defines the new node with the new spell
     n->left = NULL; //initializes pointers to left and right children to NULL
     n->right = NULL;
     n->height = 1; //initializes height to 1
@@ -49,7 +49,7 @@ node* leftRotate(node* x){ //left-roation performed on (sub)tree of root x
     return y; //returns y, the new root
 }
 
-node* rightRotate(node* y){ //right-rotation performed on (sub)tree of root y
+node* rightRotate(node* y){ //right-rotation performed on subtree of root y
     //creating pointers to the relevant subtrees/nodes
     node* x = y->left;
     node* T2 = x->right;
@@ -65,7 +65,7 @@ node* rightRotate(node* y){ //right-rotation performed on (sub)tree of root y
     return x; //returns x, the new root
 }
 
-node* insert(node* root, char* spell){ //recursively insert a new node, passing root node and the spell to add
+node* insert(node* root, char spell[]){ //recursively insert a new node, passing root node and the spell to add
     //normal insertion of the node in the right place
     if(root == NULL)
         return newNode(spell); //base case: creates the node
@@ -98,7 +98,7 @@ node* insert(node* root, char* spell){ //recursively insert a new node, passing 
     return root; //returns the root pointer
 }
 
-node* search(node* root, char* spell){ //recursive search function to find a spell in the tree
+node* search(node* root, char spell[]){ //recursive search function to find a spell in the tree
     if(root == NULL || strcmp(root->spell, spell) == 0)
         return root; //returns the node with the spell if found, otherwise will be NULL
     if(strcmp(root->spell, spell) > 0)
@@ -106,56 +106,58 @@ node* search(node* root, char* spell){ //recursive search function to find a spe
     else return search(root->right, spell);
 }
 
-node* delete(node* root, char* spell){
-    if (root == NULL) //if spell to be deleted is not in tree, returns NULL
-        return root;
+node* deleteNode(node* root, char spell[]) {
+    if (root == NULL) return root; // if the tree is empty
 
-    //recursively calling the delete function to find node to be deleted
-    if (strcmp(spell, root->spell) < 0){
-        root->left = delete(root->left, spell);
-    } else if (strcmp(spell, root->spell) > 0) {
-        root->right = delete(root->right, spell);
-    } else{ //when the node is found, this part deletes it
-        if (root->left == NULL) {
+    if (strcmp(spell, root->spell) < 0)
+        root->left = deleteNode(root->left, spell); // traverse left subtree
+    else if (strcmp(spell, root->spell) > 0)
+        root->right = deleteNode(root->right, spell); // traverse right subtree
+    else { // node with only one child or no child
+        if ((root->left == NULL) || (root->right == NULL)) {
+            node* temp = root->left ? root->left : root->right;
+
+            if (temp == NULL) { // no child
+                temp = root;
+                root = NULL;
+            } else { // one child case
+                *root = *temp; // Copy the contents of the non-empty child
+                free(temp);
+            }
+        } else { // node with two children: get the inorder successor
             node* temp = root->right;
-            free(root);
-            return temp;
-        } else if (root->right == NULL) {
-            node* temp = root->left;
-            free(root);
-            return temp;
-        }
+            while (temp->left != NULL)
+                temp = temp->left;
 
-        node* temp = root->right;
-        while (temp->left != NULL) {
-            temp = temp->left;
-        }
+            // Copy the inorder successor's data to this node
+            strcpy(root->spell, temp->spell);
 
-        root->spell = temp->spell;
-        root->right = delete(root->right, temp->spell);
+            // Delete the inorder successor
+            root->right = deleteNode(root->right, temp->spell);
+        }
     }
 
-    if (root == NULL) {
+    // If the tree had only one node then return
+    if (root == NULL)
         return root;
-    }
 
-    root->height = max(height(root->left), height(root->right)) + 1; //updating height of the root node
+    // Update the height of the current node
+    root->height = max(height(root->left), height(root->right)) + 1;
 
-    //balancing the tree
+    // Balance the tree
     int balance = getBalance(root);
-    //left-left case
-    if (balance > 1 && strcmp(spell, root->left->spell) < 0)
+    if (balance > 1 && getBalance(root->left) >= 0)
         return rightRotate(root);
-    //right-right case
-    if (balance < -1 && strcmp(spell, root->right->spell) > 0)
-        return leftRotate(root);
-    //left-right case
-    if (balance > 1 && strcmp(spell, root->left->spell) > 0) {
+
+    if (balance > 1 && getBalance(root->left) < 0) {
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
-    //right-left case
-    if (balance < -1 && strcmp(spell, root->right->spell) < 0) {
+
+    if (balance < -1 && getBalance(root->right) <= 0)
+        return leftRotate(root);
+
+    if (balance < -1 && getBalance(root->right) > 0) {
         root->right = rightRotate(root->right);
         return leftRotate(root);
     }

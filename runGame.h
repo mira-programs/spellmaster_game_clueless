@@ -9,7 +9,11 @@ int runGame(char player1[], char player2[], node* spellsTreeRoot)
     // starting the game with first player
     printf("\n%s starts!\nEnter your first move: ", player1);
     scanf("%s", move);
-    int result1 = checkMove(spell, prev, move);
+<<<<<<< HEAD
+    int result1 = checkMove(spellsTreeRoot, prev, move);
+=======
+    int result1 = checkMove(spell, row, prev, move);
+>>>>>>> parent of ee51a06 (minor changes)
 
     // continuing the game with second player
     while (result1 == 1)
@@ -18,7 +22,7 @@ int runGame(char player1[], char player2[], node* spellsTreeRoot)
         prev = move[strlen(move) - 1];
         printf("%s! Enter your next move: ", player2);
         scanf("%s", move);
-        int result2 = checkMove(spell, row, prev, move);
+        int result2 = checkMove(spellsTreeRoot, prev, move);
         prev = move[strlen(move) - 1];
         if (result2 == -1)
         {
@@ -29,7 +33,7 @@ int runGame(char player1[], char player2[], node* spellsTreeRoot)
         {
             printf("%s!\nEnter your next move: ", player1);
             scanf("%s", move);
-            result1 = checkMove(spell, row, prev, move);
+            result1 = checkMove(spellsTreeRoot, prev, move);
             prev = move[strlen(move) - 1];
         }
     }

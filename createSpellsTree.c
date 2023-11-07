@@ -46,3 +46,7 @@ node* createAndPrintTree(char* fileName){ //function to create and fill a BST wi
     printInOrder(root, 0, spellCount);
     return root; //returns the root of the 
 }
+
+int main(){
+    node* root = createAndPrintTree("spells.txt");
+}
