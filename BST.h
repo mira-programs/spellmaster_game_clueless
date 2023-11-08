@@ -127,13 +127,18 @@ node *deleteNode(node *root, char spell[])
     // If the key to be deleted is smaller than the
     // root's key, then it lies in left subtree
     if (strcmp(spell, root->spell) < 0)
+    {
         root->left = deleteNode(root->left, spell);
+        return root; // ADDED THOSE RETURN STATEMENTS
+    }
 
     // If the key to be deleted is greater than the
     // root's key, then it lies in right subtree
     else if (strcmp(spell, root->spell) > 0)
+    {
         root->right = deleteNode(root->right, spell);
-
+        return root; // ANOTHER ONE
+    }
     // if key is same as root's key, then This is
     // the node to be deleted
     else
@@ -141,8 +146,7 @@ node *deleteNode(node *root, char spell[])
         // node with only one child or no child
         if ((root->left == NULL) || (root->right == NULL))
         {
-            node* temp = root->left ? root->left : root->right;
-
+            node *temp = root->left ? root->right : root->left; // THOSE TWO WERE MIXED UP
             // No child case
             if (temp == NULL)
             {
@@ -152,7 +156,7 @@ node *deleteNode(node *root, char spell[])
             else               // One child case
                 *root = *temp; // Copy the contents of
                                // the non-empty child
-            free(temp);
+            return temp;
         }
         else
         {
@@ -161,7 +165,7 @@ node *deleteNode(node *root, char spell[])
             node *temp = minValueNode(root->right);
 
             // Copy the inorder successor's data to this node
-            root->spell = temp->spell;
+            strcpy(root->spell, temp->spell); // CANT PUT NORMAL EQUAL WITH ARRAYS, TRIED IT WITH STRING COPY
 
             // Delete the inorder successor
             root->right = deleteNode(root->right, temp->spell);
