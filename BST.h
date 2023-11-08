@@ -131,8 +131,8 @@ node *deleteNode(node *root, char spell[])
 
     // If the key to be deleted is greater than the
     // root's key, then it lies in right subtree
-    else if (strcmp(key, root->key) > 0)
-        root->right = deleteNode(root->right, key);
+    else if (strcmp(spell, root->spell) > 0)
+        root->right = deleteNode(root->right, spell);
 
     // if key is same as root's key, then This is
     // the node to be deleted
