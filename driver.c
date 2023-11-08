@@ -8,10 +8,9 @@ clueless ~ Mira Hussein, Haya Mouneimne, Mariam Sonji
 #include <time.h>
 #include "runGame.h"
 #include "coinToss.h"
-#include "BST.h"
-#include "createSpellsTree.h"
 
-int main(){
+int main()
+{
 
     printf("Welcome to the Spell Master game!\n"); // welcome message
 
@@ -25,13 +24,13 @@ int main(){
 
     // printing table of spells and creating the tree of spells
     printf("below is a list of spells you may use:\n");
-    node* spellsTreeRoot = createAndPrintTree("spells.txt");
+    node *spellsTreeRoot = createAndPrintTree("spells.txt");
 
     // tossing the coin to decide which player begins, and starting the game accordingly
     int randNum = coinToss();
     if (randNum == 0)
-        runGame(player1, player2, spell, row);
+        runGame(player1, player2, spellsTreeRoot);
     else
-        runGame(player2, player1, spell, row);
+        runGame(player2, player1, spellsTreeRoot);
     return 0;
 }
