@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 typedef struct node
@@ -162,7 +160,11 @@ node *deleteNode(node *root, char spell[])
         {
             // node with two children: Get the inorder
             // successor (smallest in the right subtree)
-            node *temp = minValueNode(root->right);
+            node *temp = root->right;
+            while (temp->right != NULL) // THERE WAS AN ERROR HERE SO USED JAVA LOGIC TO FIX IT
+            {
+                temp = temp->right;
+            }
 
             // Copy the inorder successor's data to this node
             strcpy(root->spell, temp->spell); // CANT PUT NORMAL EQUAL WITH ARRAYS, TRIED IT WITH STRING COPY
