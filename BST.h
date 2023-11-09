@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct node
@@ -6,13 +8,13 @@ typedef struct node
     struct node *left;
     struct node *right;
     int height;
-    char spell[];
+    char* spell;
 } node;
 
 node *newNode(char s[])
 {                                           // creates a new node. s is the spell being added
     node *n = (node *)malloc(sizeof(node)); // creates pointer to new node n and allocates memory
-    strcpy(n->spell, s);                    // defines the new node with the new spell
+    n->spell = s;                    // defines the new node with the new spell
     n->left = NULL;                         // initializes pointers to left and right children to NULL
     n->right = NULL;
     n->height = 1; // initializes height to 1
