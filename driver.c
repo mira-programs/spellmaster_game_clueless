@@ -24,7 +24,8 @@ int main()
 
     // printing table of spells and creating the tree of spells
     printf("below is a list of spells you may use:\n");
-    node *spellsTreeRoot = createAndPrintTree("spells.txt");
+    int spellsLeft [26] = {0}; //creating and initializing array for spells count
+    node *spellsTreeRoot = createAndPrintTree("spells.txt", spellsLeft);
 
     // tossing the coin to decide which player begins, and starting the game accordingly
     int randNum = coinToss();

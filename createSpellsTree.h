@@ -23,7 +23,7 @@ int printInOrder(node *root, int printed, int spellCount)
     return printed;
 }
 
-node *createAndPrintTree(char *fileName)
+node *createAndPrintTree(char *fileName, int spellsLeft[])
 { // function to create and fill a BST with the spells from txt file
     // opening the file
     FILE *filePointer;
@@ -46,6 +46,13 @@ node *createAndPrintTree(char *fileName)
     while (fscanf(filePointer, "%50s", spell) != EOF)
     {                                       // repeats till end of file
         root = insert(root, strdup(spell)); // insert the spell that was just read
+        // update spells left array
+        char firstLetter = spell[0];
+        if ('a' <= firstLetter && firstLetter <= 'z')
+        {
+            // Update the count in the alphabet array
+            spellsLeft[firstLetter - 'a']++;
+        }
     }
 
     fclose(filePointer); // closes the file
