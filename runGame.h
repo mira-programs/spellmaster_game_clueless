@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "checkMove.h"
-int runGame(char player1[], char player2[], node *spellsTreeRoot)
+int runGame(char player1[], char player2[], node *spellsTreeRoot, int spellsLeft[])
 {
 
     char prev = ' ';
@@ -19,7 +19,7 @@ int runGame(char player1[], char player2[], node *spellsTreeRoot)
         prev = move[strlen(move) - 1];
         printf("%s! Enter your next move: ", player2);
         scanf("%s", move);
-        int result2 = checkMove(spellsTreeRoot, prev, move);
+        int result2 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
         prev = move[strlen(move) - 1];
         if (result2 == -1)
         {
@@ -30,7 +30,7 @@ int runGame(char player1[], char player2[], node *spellsTreeRoot)
         {
             printf("%s!\nEnter your next move: ", player1);
             scanf("%s", move);
-            result1 = checkMove(spellsTreeRoot, prev, move);
+            result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
             prev = move[strlen(move) - 1];
         }
     }
