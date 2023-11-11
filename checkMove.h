@@ -1,6 +1,6 @@
 #include "createSpellsTree.h"
 
-int checkMove(node *spellTree, char previousChar, char *spell, int[] spellsLeft)
+int checkMove(node *spellTree, char previousChar, char *spell, int spellsLeft[])
 {
     // searching the tree for the spell that was cast
     node *move = search(spellTree, spell);
