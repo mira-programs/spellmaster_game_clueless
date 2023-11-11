@@ -20,7 +20,7 @@ node *modifiedSearch(node *root, char prev, int spellsLeft[])
     if (root == NULL)
     {
         fprintf(stderr, "Error: Root is NULL in modifiedSearch function.\n");
-        // You might want to exit the program or handle the error appropriately.
+        // exit the program
         exit(EXIT_FAILURE);
     }
 
@@ -72,7 +72,7 @@ int main()
     {
         printf("Count for '%c': %d\n", 'a' + i, spellsLeft[i]);
     }
-    
+
     node* move = modifiedSearch(root, 'q', spellsLeft);
     checkMove(root, 'q', move->spell, spellsLeft);
 
