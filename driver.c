@@ -27,11 +27,24 @@ int main()
     int spellsLeft [26] = {0}; //creating and initializing array for spells count
     node *spellsTreeRoot = createAndPrintTree("spells.txt", spellsLeft);
 
+//just for testing
+printf("\ncurrent spells count:\n");
+for (int i = 0; i < 26; i++) {
+    printf("Count for '%c': %d\n", 'a' + i, spellsLeft[i]);
+}
+
     // tossing the coin to decide which player begins, and starting the game accordingly
     int randNum = coinToss();
     if (randNum == 0)
-        runGame(player1, player2, spellsTreeRoot);
+        runGame(player1, player2, spellsTreeRoot, spellsLeft);
     else
-        runGame(player2, player1, spellsTreeRoot);
+        runGame(player2, player1, spellsTreeRoot, spellsLeft);
+
+//just for testing
+printf("\nend of game spells count:\n");
+for (int i = 0; i < 26; i++) {
+    printf("Count for '%c': %d\n", 'a' + i, spellsLeft[i]);
+}
+
     return 0;
 }

@@ -9,7 +9,7 @@ int runGame(char player1[], char player2[], node *spellsTreeRoot, int spellsLeft
     // starting the game with first player
     printf("\n%s starts!\nEnter your first move: ", player1);
     scanf("%s", move);
-    int result1 = checkMove(spellsTreeRoot, prev, move);
+    int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
     // int result1 = checkMove(spell, row, prev, move);
 
     // continuing the game with second player
