@@ -13,7 +13,8 @@ int checkMove(node *spellTree, char previousChar, char *spell)
         }
         else
         {                                // if spell was not cast before (valid)
-            deleteNode(spellTree, move->spell); // deletes the spell from the tree
+            // deleteNode(spellTree, move->spell); // deletes the spell from the tree
+            move->used = 1;
             if (spell[0] != previousChar && previousChar != ' ')
             { // if spell starts with the wrong char (invalid)
                 printf("spell starts with the wrong character! you lose!\n");
