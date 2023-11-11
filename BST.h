@@ -8,13 +8,13 @@ typedef struct node
     struct node *left;
     struct node *right;
     int height;
-    char* spell;
+    char *spell;
 } node;
 
-node *newNode(char s[])
+node *newNode(char *s)
 {                                           // creates a new node. s is the spell being added
     node *n = (node *)malloc(sizeof(node)); // creates pointer to new node n and allocates memory
-    n->spell = s;                    // defines the new node with the new spell
+    n->spell = s;                           // defines the new node with the new spell
     n->left = NULL;                         // initializes pointers to left and right children to NULL
     n->right = NULL;
     n->height = 1; // initializes height to 1
@@ -73,7 +73,7 @@ node *rightRotate(node *y)
     return x; // returns x, the new root
 }
 
-node *insert(node *root, char spell[])
+node *insert(node *root, char *spell)
 { // recursively insert a new node, passing root node and the spell to add
     // normal insertion of the node in the right place
     if (root == NULL)
@@ -109,7 +109,7 @@ node *insert(node *root, char spell[])
     return root; // returns the root pointer
 }
 
-node *search(node *root, char spell[])
+node *search(node *root, char *spell)
 { // recursive search function to find a spell in the tree
     if (root == NULL || strcmp(root->spell, spell) == 0)
         return root; // returns the node with the spell if found, otherwise will be NULL
@@ -119,7 +119,7 @@ node *search(node *root, char spell[])
         return search(root->right, spell);
 }
 
-node *deleteNode(node *root, char spell[])
+node *deleteNode(node *root, char *spell)
 {
     if (root == NULL)
         return root;
