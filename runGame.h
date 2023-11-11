@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "checkMove.h"
-int runGame(char player1[], char player2[], elements *spell, int row)
+int runGame(char player1[], char player2[], node *spellsTreeRoot, int spellsLeft[])
 {
 
     char prev = ' ';
@@ -9,7 +9,8 @@ int runGame(char player1[], char player2[], elements *spell, int row)
     // starting the game with first player
     printf("\n%s starts!\nEnter your first move: ", player1);
     scanf("%s", move);
-    int result1 = checkMove(spell, row, prev, move);
+    int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
+    // int result1 = checkMove(spell, row, prev, move);
 
     // continuing the game with second player
     while (result1 == 1)
@@ -18,7 +19,7 @@ int runGame(char player1[], char player2[], elements *spell, int row)
         prev = move[strlen(move) - 1];
         printf("%s! Enter your next move: ", player2);
         scanf("%s", move);
-        int result2 = checkMove(spell, row, prev, move);
+        int result2 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
         prev = move[strlen(move) - 1];
         if (result2 == -1)
         {
@@ -29,7 +30,7 @@ int runGame(char player1[], char player2[], elements *spell, int row)
         {
             printf("%s!\nEnter your next move: ", player1);
             scanf("%s", move);
-            result1 = checkMove(spell, row, prev, move);
+            result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
             prev = move[strlen(move) - 1];
         }
     }
