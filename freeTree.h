@@ -1,6 +1,10 @@
 #include "checkMove.h"
+/*
+Precondition:node pointer to the root of the BST
+Postcondition:nothing
+*/
 void terminateTree(node *root)
-{ // in order traversal to free the nodes of the tree
+{ 
     if (root != NULL)
     {
         return;
