@@ -1,4 +1,8 @@
 #include "bot1.h"
+/*
+Precondition: two strings of the players' names, a node pointer to the BST root and array of the number of spells left depending on the letter of size 26
+Postcondition: return 0 if player 1 wins and 1 if player 2 wins
+*/
 int runGame(char player1[], char player2[], node *spellsTreeRoot, int spellsLeft[])
 {
 
@@ -36,6 +40,10 @@ int runGame(char player1[], char player2[], node *spellsTreeRoot, int spellsLeft
     printf("%s loses! %s wins! congratulations!", player1, player2); // player 2 wins
     return 1;
 }
+/*
+Precondition: one string of the player's name, a node pointer to the BST root and array of the number of spells left depending on the letter of size 26
+Postcondition: returns 0 if player 1 wins and 1 if bot wins
+*/
 int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
 { // modified version with the bot
     char prev = ' ';
