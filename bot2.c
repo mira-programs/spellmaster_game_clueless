@@ -7,9 +7,8 @@
 #include "coinToss.h"
 #include "bot1.h"
 
-node *botMakeMove(node *root, char prev, int spellsLeft[])
-{
-    return botMakeMoveHelper(root, prev, spellsLeft, root);
+int compareSpells(node* a, node* b, int spellsLeft[]){ //compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
+    return (spellsLeft[a->spell[0] - 'a'] > spellsLeft[b->spell[0]] - 'a') ? 1 : -1;
 }
 
 node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
@@ -28,9 +27,16 @@ node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
     return best;
 }
 
-int compareSpells(node* a, node* b, int spellsLeft[]){ //compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
-    
+node *botMakeMove(node *root, char prev, int spellsLeft[])
+{
+    return botMakeMoveHelper(root, prev, spellsLeft, root);
 }
+
+int main(){
+    
+    return 0;
+}
+
 
 // moderate bot: only check opponent's move.
 // will be copied into bot1 once it works.
