@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
-#include "bot1.h"
+#include "easyBot.h"
 
 int compareSpells(node *a, node *b, int spellsLeft[])
 { // compare spells; if a > b, returns 1, a < b, returns -1, else returns 0

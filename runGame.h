@@ -1,5 +1,5 @@
-//#include "bot2.h"
-#include "bot1_5.h"
+//#include "hardBot.h"
+#include "mediumBot.h"
 
 /*
 Precondition: two strings of the players' names, a node pointer to the BST root and array of the number of spells left depending on the letter of size 26
@@ -60,9 +60,9 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
 
         //HERE IS WHERE THE BOT MAKES A MOVE
 
-        //WE SHOULD ADD THE THREE DIFFICULTIES AS OPTIONS MAYBE THIS CODE? (BEFORE "printf("bot's tur!")"):
+        //WE SHOULD ADD THE THREE DIFFICULTIES AS OPTIONS MAYBE THIS CODE? (BEFORE "printf("bot's turn !")"):
         /*
-        printf(Please choose difficulty level: \n1. Easy \n2. Moderate \n3. Hard);
+        printf(Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard);
         int difficuty;
         scanf("%d", &difficulty);
 
@@ -76,7 +76,7 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
             BOT2
         }
         else {
-            printf("Invalid difficulty. Please choose either 1 (easy), 2 (moderate) or 3 (hard)");
+            printf("Invalid difficulty. Please choose either 1 (easy), 2 (medium) or 3 (hard)");
         }
         */
 

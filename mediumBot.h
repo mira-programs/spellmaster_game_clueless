@@ -1,8 +1,13 @@
-#include "bot2.h"
+#include "hardBot.h"
 
 /*
 precondition: node pointer to the node we wish to compare, an integer value and the spellsLeft array.
 postcondition: will return 1 if the amount of spells left starting with the last letter of the spell in the given node is less than the bar. Otherwise it will return -1.
+
+Test cases: 
+1. The number of spells left is less than then bar: the function returns 1.
+2. The number of spells is equal to the bar: the function returns 1.
+3. The number of spells is larger than the bar: the function returns -1.
 */
 int compareBarSpell(node *a, int bar, int spellsLeft[])
 { // compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
@@ -18,6 +23,8 @@ int compareBarSpell(node *a, int bar, int spellsLeft[])
 /*
 precondition: node pointer, the last character of the previously used spell, an integer (the bar), an array of integers and a node pointer to the best choice to make so far.
 postcondition: It'll return a node pointer to the best spell the bot can cast to win if such a move exists.
+
+
 */
 node *ModerateBotMoveHelper(node *root, char prev, int bar, int spellsLeft[], node *best)
 {

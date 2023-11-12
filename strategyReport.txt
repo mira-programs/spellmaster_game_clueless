@@ -25,7 +25,7 @@ In phase one, the players were the two users, no bot implementation, we divided 
     3. returns the name of the player who will be starting
 A problem was encountered in this problem: the random (rand()) kept showing the same number every iteration. The problem turned out to be because of the seed so we imported the current time and gave it as a seed.
 - checkMove:
-    1. takes (a pointer to) the 2D array containing the spells, the previously used spell (or the last character of the spell), and the spell cast by the current player as parameters b) loops once through the 2D array containing the spells, comparing each spell to the spell cast 
+    1. takes (a pointer to) the 2D array containing the spells, the previously used spell (or the last character of the spell), and the spell cast by the current player as parameters b, loops once through the 2D array containing the spells, comparing each spell to the spell cast 
         1. if the spell is found, checks if the spell has been used before:
             1. if the spell has been used before, the function returns “the spell has been used before! the current player loses!”
             2. if the spell has not been used before, checks if the first character of the spell cast is the same the last character of the previously cast spell 
