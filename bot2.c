@@ -7,26 +7,43 @@
 #include "coinToss.h"
 #include "bot1.h"
 
-node* botMakeMove(node *root, char prev, int spellsLeft[]){
+node *botMakeMove(node *root, char prev, int spellsLeft[])
+{
     return botMakeMoveHelper(root, prev, spellsLeft, root);
 }
 
-node* botMakeMoveHelper(node* root, char prev, int spellLeft[], node* best){
-
+node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
+{
+    if (root != NULL)
+    {
+        // recursive call for left tree
+        best = botMakeMoveHelper(root->left, prev, spellsLeft, best);
+        //check if root is better than best
+        if(compareSpells(root, best, spellsLeft) > 0){
+            best = root;
+        }
+        // recurvise call for right tree
+        best = botMakeMoveHelper(root->right, prev, spellsLeft, best);
+    }
+    return best;
 }
 
-//moderate bot: only check opponent's move.
-//will be copied into bot1 once it works.
+int compareSpells(node* a, node* b, int spellsLeft[]){ //compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
+    
+}
 
-//following commented code is useless for now
+// moderate bot: only check opponent's move.
+// will be copied into bot1 once it works.
+
+// following commented code is useless for now
 /* node *newSearch(int index, node * root) {        //to find a spell based on it's place in the tree following an in-order traversal (not too sure about this still testing)
     int count = 0; //to keep track of which index we're at in the in-order traversal of the tree.
     bool isFound = false;
 
-    while (!isFound) {    
+    while (!isFound) {
         if (count == index)     //here is where we reach the spell in the tree, so we return the node.
             return root;
-        else 
+        else
             if (root->left != NULL) {
                                 //more code to add here: in order traversal if possible?
                 count++;
@@ -64,18 +81,18 @@ node *botMakesMove(node *root, char previousChar, int spellsLeft[]) {
                 current = current->right;
             }
             else {
-    
+
                 //find the in-order ancestor of current
                 pre = current->left;
                 while (pre->right != NULL && pre->right != current)
                     pre = pre->right;
-    
-                //make current the right child of its in-order ancestor 
+
+                //make current the right child of its in-order ancestor
                 if (pre->right == NULL) {
                     pre->right = current;
                     current = current->left;
                 }
-    
+
                 //reverting the changes made in the 'if' part to restore the original tree i.e., fix the right child of predecessor
                 else {
                     pre->right = NULL;
@@ -102,8 +119,8 @@ while (count <= spellsLeft[previousChar]) { //we'l keep looking as long as we ha
             else if (spellsLeft[c] < spellsLeft[best])
                 bestChoice = current;
             else {      //check both children and compare? but this won't work: I'll choose one of the two then throw away the descendants of the other.
-            
 
-            }                 
+
+            }
         }
 */
