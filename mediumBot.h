@@ -42,6 +42,7 @@ if (best->spell[0] != prev) best = root;
         if (root->spell[0] == prev && compareBarSpell(root, bar, spellsLeft) > 0)
         {
             best = root;
+            return best;        //we don't want to check further; return the first one that is below the bar.
         }
 
         // recurvise call for right tree
