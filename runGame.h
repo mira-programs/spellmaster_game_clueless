@@ -85,8 +85,6 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
 
         //HERE IS WHERE THE BOT MAKES A MOVE
 
-        //WE SHOULD ADD THE THREE DIFFICULTIES AS OPTIONS MAYBE THIS CODE? (BEFORE "printf("bot's turn !")"):
-
         if (difficulty == 1) {
             spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); //EASY MODE
         }
@@ -97,10 +95,6 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
             spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //HARD MODE
         }
         
-
-        //node *spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); EASY MODE
-        //node *spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //medium mode (now hard mode)
-        //node *spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //moderate
         printf("bot chose: %s\n", spell->spell);
 
 
