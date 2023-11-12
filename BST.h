@@ -38,8 +38,8 @@ int height(node *n)
 }
 
 /*
-precondition: 
-postcondition:
+precondition: node pointer.
+postcondition: will return the balance of the tree starting from the given node.
 */
 int getBalance(node *n)
 { // calculates balance factor of node n
@@ -49,8 +49,8 @@ int getBalance(node *n)
 }
 
 /*
-precondition:
-postcondition:
+precondition: given two integers a and b.
+postcondition: returns which of the two (a or b) is larger (the maximum out of the two).
 */
 int max(int a, int b)
 {                           // max function, used to calculate height in insert function
@@ -58,8 +58,8 @@ int max(int a, int b)
 }
 
 /*
-precondition:
-postcondition:
+precondition: node pointer; a BST in which one of the nodes violates the BST conditions or on unbalanced trees.
+postcondition: corrected BST in which every node's left child is smaller than it and every right child is larger than it. Correction is done by rotating the given node to the left.
 */
 node *leftRotate(node *x)
 { // left-roation performed on (sub)tree of root x
@@ -77,8 +77,8 @@ node *leftRotate(node *x)
 }
 
 /*
-precondition:
-postcondition:
+precondition: node pointer; a BST in which one of the nodes violates the BST conditions or on unbalanced trees.
+postcondition: corrected BST in which every node's left child is smaller than it and every right child is larger than it. Correction is done by rotating the given node to the right.
 */
 node *rightRotate(node *y)
 { // right-rotation performed on subtree of root y
@@ -98,7 +98,7 @@ node *rightRotate(node *y)
 }
 
 /*
-precondition:
+precondition: 
 postcondition:
 */
 node *insert(node *root, char *spell)
@@ -138,7 +138,8 @@ node *insert(node *root, char *spell)
 }
 
 /*
-
+precondition:
+postcondition:
 */
 node *search(node *root, char *spell)
 { // recursive search function to find a spell in the tree
@@ -150,6 +151,10 @@ node *search(node *root, char *spell)
         return search(root->right, spell);
 }
 
+/*
+precondition:
+postcondition:
+*/
 node *deleteNode(node *root, char *spell)
 {
     if (root == NULL)
