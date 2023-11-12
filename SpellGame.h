@@ -3,6 +3,10 @@
 #include <string.h>
 #include <time.h>
 #include "runGame.h"
+/*
+Precondition: nothing
+Postcondition: nothing
+*/
 void theGame()
 {
     printf("Welcome to the Spell Master game!\n"); // welcome message
