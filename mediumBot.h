@@ -1,4 +1,5 @@
 #include "hardBot.h"
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 /*
 precondition: node pointer to the node we wish to compare, an integer value and the spellsLeft array.
@@ -59,7 +60,7 @@ Test cases:
 */
 int totalSpellsLeft(int spellsLeft[]) {
     int total = 0;
-    for (int i = 0; i < sizeof(spellsLeft) / sizeof(spellsLeft[0]); i++) {
+    for (int i = 0; i < ARRAY_SIZE(spellsLeft); i++) {
         total += spellsLeft[i];
     }
 

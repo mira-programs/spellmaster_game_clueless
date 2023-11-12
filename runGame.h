@@ -50,15 +50,12 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
 { // modified version with the bot
     char prev = ' ';
     char move[50];
-    printf("%s\nEnter your first move: ", player1);
-    scanf("%s", move);
-    int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
 
     node *spell;
     int difficulty;
     bool isChosen = false;
     while (!isChosen) {
-        printf("Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard");
+        printf("Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard \n");
         scanf("%d", &difficulty);
 
         if (difficulty == 1) {
@@ -74,9 +71,14 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
             isChosen = true;
         }
         else {
-            printf("Invalid difficulty. Please choose either 1 (easy), 2 (medium) or 3 (hard)");
+            printf("Invalid difficulty. Please choose either 1 (easy), 2 (medium) or 3 (hard) \n");
         }
     }
+
+    printf("%s\nEnter your first move: ", player1);
+    scanf("%s", move);
+    int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
+
 
     while (result1 == 1)
     {
