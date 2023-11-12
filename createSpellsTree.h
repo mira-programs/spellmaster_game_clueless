@@ -1,5 +1,8 @@
 #include "BST.h"
-
+/*
+Precondition: node pointer to root of BST, int of printed nodes(0 in the function call) and int of the number of spells
+Postcondition: returns the number of printed spells
+*/
 int printInOrder(node *root, int printed, int spellCount)
 { // helper function to print the spells by inorder traversal
     if (root != NULL)
@@ -19,7 +22,10 @@ int printInOrder(node *root, int printed, int spellCount)
     }
     return printed;
 }
-
+/*
+Precondition: string file name with the number of spells being the first line, array of the number of spells left depending on the letter of size 26
+Postcondition: returns the root node of the BST
+*/
 node *createAndPrintTree(char *fileName, int spellsLeft[])
 { // function to create and fill a BST with the spells from txt file
     // opening the file
