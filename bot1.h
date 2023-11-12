@@ -4,16 +4,21 @@
 #include <time.h>
 #include "freeTree.h"
 #include "coinToss.h"
-// generate random number, used for modified search
+/*
+Precondition: int min and int max with min < max and both < number of nodes in BST
+Postcondition:returns random number, used for modified search
+*/
 int randomNum(int min, int max)
 {
     int random_number = rand() % (max - min + 1) + min; //random number between min and max inclusive
     return random_number;
 }
-
-// modified search function
+/*
+Precondition: pointer to a node in BST, character prev not equal to null and array of the number of spells left depending on the letter of size 26
+Postcondition: returns a node pointer to a spell in the tree
+*/
 node *modifiedSearch(node *root, char prev, int spellsLeft[])
-{ // recursive search function to find a spell in the tree
+{ 
 
     if (root == NULL)
     {
