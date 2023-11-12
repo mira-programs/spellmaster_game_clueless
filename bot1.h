@@ -4,7 +4,6 @@
 #include <time.h>
 #include "freeTree.h"
 #include "coinToss.h"
-#include "checkMove.h"
 // generate random number, used for modified search
 int randomNum(int min, int max)
 {
