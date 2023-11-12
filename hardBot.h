@@ -5,6 +5,10 @@
 #include <time.h>
 #include "easyBot.h"
 
+/*
+precondition: two node pointers to two different possible spells, an array of integers (stores the number of spells left for each letter). 
+postcondition: will return which spell is the better choice out of the two: if it's the first one (a), it will return 1 and if it's b it'll return -1. In the case where they're both the same, check the used variables of each: if both were used or none were used give back the first one, if one of them wasn't used give back the non-used one.
+*/
 int compareSpells(node *a, node *b, int spellsLeft[])
 { // compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
     char* spellA = a->spell;
@@ -18,6 +22,10 @@ int compareSpells(node *a, node *b, int spellsLeft[])
     else return (a->used > b->used) ? -1 : 1; //if a is used, return b, else return a 
 }
 
+/*
+precondition: node pointer to the root, character (last letter of the opponent's spell), and array of integers (that sotres the number of spells left with each letter) and another node pointer to the best choice so far.
+postcondition: returns the best choice out of all the possible spells, and if such a choice doesn't exist (no matter what you choose you loose) it gives back a non-valid spell.
+*/
 node *MediumBotMoveHelper(node *root, char prev, int spellsLeft[], node *best)
 {
     if (root != NULL)
@@ -38,6 +46,10 @@ if (best->spell[0] != prev) best = root;
     return best;
 }
 
+/*
+precondition: node pointer to the root of the BST, a character (last letter of the opponent's spell) and an array of integers (that stores the number of spells left for each letter).
+postcondition: returns the best spell to cast if there is one, if not returns a non-valid spell.
+*/
 node *MediumBotMove(node *root, char prev, int spellsLeft[])
 {
     return MediumBotMoveHelper(root, prev, spellsLeft, root);

@@ -55,7 +55,7 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
     int difficulty;
     bool isChosen = false;
     while (!isChosen) {
-        printf("Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard \n");
+        printf("Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard \nI choose: ");
         scanf("%d", &difficulty);
 
         if (difficulty == 1) {
