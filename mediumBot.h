@@ -24,7 +24,10 @@ int compareBarSpell(node *a, int bar, int spellsLeft[])
 precondition: node pointer, the last character of the previously used spell, an integer (the bar), an array of integers and a node pointer to the best choice to make so far.
 postcondition: It'll return a node pointer to the best spell the bot can cast to win if such a move exists.
 
-
+Test cases:
+1. If there are no spells that start with the last letter of the opponent's spell: uses wingardiumLeviosa.
+2. If there all spells starting with the previous letter were used: uses a used spell.
+3. If there are spells to be cast: sometimes it chooses winning spells (when possible), other times chooses non-winning spells (even when there's a winning alternative).
 */
 node *ModerateBotMoveHelper(node *root, char prev, int bar, int spellsLeft[], node *best)
 {
@@ -49,6 +52,10 @@ if (best->spell[0] != prev) best = root;
 /*
 precondition: an array of integers.
 postcondition: the total amount of spells that haven't yet been used.
+
+Test cases:
+1. Before using any spell: gives back the total amount of spells originally (here 78).
+2. After having used spells: gives back amount of spells left (unused).
 */
 int totalSpellsLeft(int spellsLeft[]) {
     int total = 0;

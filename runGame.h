@@ -53,6 +53,31 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
     printf("%s\nEnter your first move: ", player1);
     scanf("%s", move);
     int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
+
+    node *spell;
+    int difficulty;
+    bool isChosen = false;
+    while (!isChosen) {
+        printf("Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard");
+        scanf("%d", &difficulty);
+
+        if (difficulty == 1) {
+            spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); //EASY MODE
+            isChosen = true;
+        }
+        else if (difficulty == 2) {
+            spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //MEDIUM MODE
+            isChosen = true;
+        }
+        else if (difficulty == 3) {
+            spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //HARD MODE
+            isChosen = true;
+        }
+        else {
+            printf("Invalid difficulty. Please choose either 1 (easy), 2 (medium) or 3 (hard)");
+        }
+    }
+
     while (result1 == 1)
     {
         printf("bot's turn!\n");
@@ -61,28 +86,21 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
         //HERE IS WHERE THE BOT MAKES A MOVE
 
         //WE SHOULD ADD THE THREE DIFFICULTIES AS OPTIONS MAYBE THIS CODE? (BEFORE "printf("bot's turn !")"):
-        /*
-        printf(Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard);
-        int difficuty;
-        scanf("%d", &difficulty);
 
         if (difficulty == 1) {
-            BOT1 
+            spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); //EASY MODE
         }
         else if (difficulty == 2) {
-            BOT1_5
-        }
-        else if (diffculty == 3) {
-            BOT2
+            spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //MEDIUM MODE
         }
         else {
-            printf("Invalid difficulty. Please choose either 1 (easy), 2 (medium) or 3 (hard)");
+            spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //HARD MODE
         }
-        */
+        
 
         //node *spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); EASY MODE
         //node *spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //medium mode (now hard mode)
-        node *spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //moderate
+        //node *spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //moderate
         printf("bot chose: %s\n", spell->spell);
 
 
