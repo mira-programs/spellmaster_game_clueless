@@ -1,5 +1,8 @@
 #include "createSpellsTree.h"
-
+/*
+Precondition: pointer to the root node of BST not equal to null, char previousChar, String of the spell to be checked and array of the number of spells left depending on the letter of size 26
+Postcondition: return 1 if spell is valid and -1 if spell is invalid (cast before, starts with wrong character or not in list)
+*/
 int checkMove(node *spellTree, char previousChar, char *spell, int spellsLeft[])
 {
     // searching the tree for the spell that was cast
