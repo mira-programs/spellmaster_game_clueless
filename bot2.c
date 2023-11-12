@@ -13,7 +13,9 @@ int compareSpells(node *a, node *b, int spellsLeft[])
     char BLastLetter = spellB[strlen(spellB) - 1];
     if(spellsLeft[ALastLetter - 'a'] < spellsLeft[BLastLetter - 'a']){
         return 1;
-    }else return -1;
+    }else if (spellsLeft[ALastLetter - 'a'] > spellsLeft[BLastLetter - 'a'])
+        return -1;
+    else return (a->used > b->used) ? -1 : 1; //if a is used, return b, else return a 
 }
 
 node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
