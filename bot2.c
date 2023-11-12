@@ -3,24 +3,29 @@
 #include <stdbool.h>
 #include <string.h>
 #include <time.h>
-#include "freeTree.h"
-#include "coinToss.h"
 #include "bot1.h"
 
-int compareSpells(node* a, node* b, int spellsLeft[]){ //compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
-    return (spellsLeft[a->spell[0] - 'a'] < spellsLeft[b->spell[0]] - 'a') ? 1 : -1;
+int compareSpells(node *a, node *b, int spellsLeft[])
+{ // compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
+    char* spellA = a->spell;
+    char* spellB = b->spell;
+    char ALastLetter = spellA[strlen(spellA) - 1];
+    
+    return (spellsLeft[a->spell[] - 'a'] < spellsLeft[b->spell[] - 'a']) ? 1 : -1;
 }
 
 node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
 {
     if (root != NULL)
     {
+if (best->spell[0] != prev) best = root;
         // recursive call for left tree
         best = botMakeMoveHelper(root->left, prev, spellsLeft, best);
 
-        if(best->spell[0] != prev) 
+        if (best->spell[0] != prev){
             best = root; // should only be reached if the best was still the intial root call
-        else if(compareSpells(root, best, spellsLeft) > 0){
+        }else if (compareSpells(root, best, spellsLeft) > 0)
+        {
             best = root;
         }
 
@@ -35,15 +40,20 @@ node *botMakeMove(node *root, char prev, int spellsLeft[])
     return botMakeMoveHelper(root, prev, spellsLeft, root);
 }
 
-int main(){
+int main()
+{
 
     int spellsLeft[26] = {0}; // creating and initiali zing array for spells count
-    node* root = createAndPrintTree("spells.txt", spellsLeft);
-    node* move = botMakeMove(root, '', spellsLeft);
-    printf()
+    node *root = createAndPrintTree("spells.txt", spellsLeft);
+    printf("\ncurrent spells count:\n");
+    for (int i = 0; i < 26; i++)
+    {
+        printf("Count for '%c': %d\n", 'a' + i, spellsLeft[i]);
+    }
+    node *move = botMakeMove(root, 'a', spellsLeft);
+    printf("\nbot chose: %s\n", move->spell); 
     return 0;
 }
-
 
 // moderate bot: only check opponent's move.
 // will be copied into bot1 once it works.
