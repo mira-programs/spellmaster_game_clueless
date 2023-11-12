@@ -7,8 +7,7 @@
 // generate random number, used for modified search
 int randomNum(int min, int max)
 {
-    srand(time(NULL)); // seed with the current time to get different results at different runs
-    int random_number = rand() % (max - min + 1) + min;
+    int random_number = rand() % (max - min + 1) + min; //random number between min and max inclusive
     return random_number;
 }
 

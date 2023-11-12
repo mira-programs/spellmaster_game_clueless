@@ -48,9 +48,11 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
         printf("bot's turn!\n");
         prev = move[strlen(move) - 1];
         node *spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); // spell returned by the bot
-        printf("bot chose: %s", spell->spell);
+        printf("bot chose: %s\n", spell->spell);
         int result2 = checkMove(spellsTreeRoot, prev, spell->spell, spellsLeft);
-        prev = spell->spell[strlen(move) - 1];
+        prev = spell->spell[strlen(spell->spell) - 1];
+//for testing only
+printf("\nTEST: bot's last char: %c\n", prev);
         if (result2 == -1)
         {
             printf("bot loses! %s wins! congratulations!", player1);
