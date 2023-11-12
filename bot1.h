@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "freeTree.h"
 #include "coinToss.h"
-#include "checkMove.h"
+#include "BST.h"
+
 // generate random number, used for modified search
 int randomNum(int min, int max)
 {

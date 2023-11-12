@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "runGame.h"
+
 void theGame()
 {
     printf("Welcome to the Spell Master game!\n"); // welcome message
