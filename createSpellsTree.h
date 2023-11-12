@@ -36,7 +36,7 @@ node *createAndPrintTree(char *fileName, int spellsLeft[])
     fscanf(filePointer, "%d", &spellCount);
     // reading the spells from the file, and printing as it goes
     char spell[50];
-    fscanf(filePointer, "%50s", spell);  // takes the first spell from the file
+   fscanf(filePointer, "%50s", spell);  // takes the first spell from the file
     node *root = newNode(strdup(spell)); // initializes the tree using the first spell
 
     while (fscanf(filePointer, "%50s", spell) != EOF)
