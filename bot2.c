@@ -8,7 +8,7 @@
 #include "bot1.h"
 
 int compareSpells(node* a, node* b, int spellsLeft[]){ //compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
-    return (spellsLeft[a->spell[0] - 'a'] > spellsLeft[b->spell[0]] - 'a') ? 1 : -1;
+    return (spellsLeft[a->spell[0] - 'a'] < spellsLeft[b->spell[0]] - 'a') ? 1 : -1;
 }
 
 node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
@@ -17,10 +17,13 @@ node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
     {
         // recursive call for left tree
         best = botMakeMoveHelper(root->left, prev, spellsLeft, best);
-        //check if root is better than best
-        if(compareSpells(root, best, spellsLeft) > 0){
+
+        if(best->spell[0] != prev) 
+            best = root; // should only be reached if the best was still the intial root call
+        else if(compareSpells(root, best, spellsLeft) > 0){
             best = root;
         }
+
         // recurvise call for right tree
         best = botMakeMoveHelper(root->right, prev, spellsLeft, best);
     }
@@ -33,7 +36,11 @@ node *botMakeMove(node *root, char prev, int spellsLeft[])
 }
 
 int main(){
-    
+
+    int spellsLeft[26] = {0}; // creating and initiali zing array for spells count
+    node* root = createAndPrintTree("spells.txt", spellsLeft);
+    node* move = botMakeMove(root, '', spellsLeft);
+    printf()
     return 0;
 }
 
