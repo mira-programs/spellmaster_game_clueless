@@ -2,14 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "checkMove.h"
+#include "freeTree.h"
 #include "coinToss.h"
-
 // generate random number, used for modified search
 int randomNum(int min, int max)
 {
-    srand(time(NULL)); // seed with the current time to get different results at different runs
-    int random_number = rand() % (max - min + 1) + min;
+    int random_number = rand() % (max - min + 1) + min; //random number between min and max inclusive
     return random_number;
 }
 
@@ -59,26 +57,4 @@ node *modifiedSearch(node *root, char prev, int spellsLeft[])
         return modifiedSearch(root->left, prev, spellsLeft);
     else
         return modifiedSearch(root->right, prev, spellsLeft);
-}
-
-int main()
-{
-    int spellsLeft[26] = {0};
-
-    node *root = createAndPrintTree("spells.txt", spellsLeft);
-    
-    printf("\ncurrent spells count:\n");
-    for (int i = 0; i < 26; i++)
-    {
-        printf("Count for '%c': %d\n", 'a' + i, spellsLeft[i]);
-    }
-
-    node* move = modifiedSearch(root, 'q', spellsLeft);
-    checkMove(root, 'q', move->spell, spellsLeft);
-
-    printf("\nend of game spells count:\n");
-    for (int i = 0; i < 26; i++)
-    {
-        printf("Count for '%c': %d\n", 'a' + i, spellsLeft[i]);
-    }
 }
