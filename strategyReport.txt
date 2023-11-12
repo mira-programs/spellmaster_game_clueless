@@ -1,8 +1,6 @@
-Spell Master
-This strategy report shows the objectives, progress report, issues and solutions encountered by the team clueless composed of Mira Hussein, Haya Mouneimne and Mariam Sonji while building the spell master game.
-Objectives:
+This strategy report shows the objectives, issues and solutions encountered by the team clueless composed of Mira Hussein, Haya Mouneimne and Mariam Sonji while building the spell master game.
 Spell Master is a two-player game in which wizards battle by taking turns casting spells.The game can be played either against another player or a bit with different difficulty levels (easy, medium, hard) Players are provided with a list of spells they can choose from. Each player must continue to cast a spell that is more powerful than the one cast by the other player. For a spell to be more powerful, it should satisfy two requirements: it should not have been cast during the battle before, and the first character of the spell should be the same as the last character of the spell chosen in the previous round by the other player. 
-Rules:
+The rules of the game are:
 1. A spell may only be chosen from the provided list of spells.
 2. A spell may only be chosen once (repetitions are not allowed).
 3. With the exception of the first spell, every chosen spell’s first character must match the last character of the previously chosen spell.
@@ -12,7 +10,6 @@ Rules:
     3. if the opponent chooses a spell whose first character does not match the last character of the previously chosen spell
     4. if the opponent runs out of spells that satisfy the matching characters condition
 5. The game ends if one of the players wins. Note that spells are formed of single words that begin and end with lower case characters and contain no spaces or special characters.
-Progress report:
 The project was divided into two phases: phase one and phase two.
 In phase one, the players were the two users, no bot implementation, we divided the workload into three main functions:
 - readSpells:
@@ -25,7 +22,7 @@ In phase one, the players were the two users, no bot implementation, we divided 
     3. returns the name of the player who will be starting
 A problem was encountered in this problem: the random (rand()) kept showing the same number every iteration. The problem turned out to be because of the seed so we imported the current time and gave it as a seed.
 - checkMove:
-    1. takes (a pointer to) the 2D array containing the spells, the previously used spell (or the last character of the spell), and the spell cast by the current player as parameters b, loops once through the 2D array containing the spells, comparing each spell to the spell cast 
+    1. takes (a pointer to) the 2D array containing the spells, the previously used spell (or the last character of the spell), and the spell cast by the current player as parameters b) loops once through the 2D array containing the spells, comparing each spell to the spell cast 
         1. if the spell is found, checks if the spell has been used before:
             1. if the spell has been used before, the function returns “the spell has been used before! the current player loses!”
             2. if the spell has not been used before, checks if the first character of the spell cast is the same the last character of the previously cast spell 
@@ -40,6 +37,7 @@ Then we added helper functions, we removed readSpells and divided it into two fu
 This was one of the most challenging parts because of the multiple segmentation errors that we encountered that took us a while to understand. The problem varied from stack overflow to wrong memory allocation and wrong use of variable (allocated memory for int instead char). The last one was the one that helped us the most and solved the problem.
 - printArray:
     1. Takes the struct array and prints five elements on each line with a tab separating them
+In one of the tries, this function was at the end of the code so it was the one freeing the array. This created some problems at the beginning because we kept getting segmentation errors after solving the one from createAndFill. After thorough testing and after rereading the code multiple times, we found out that the freeing caused this and moved the freeing to the end of the main function. 
 - getRowNumber:
     1. Iterates through the whole file
     2. Get the number of lines 
@@ -52,8 +50,40 @@ And the function that actually runs the game
     3. Keeps a variable result who tracks who is winning and who is losing
 The spells were implemented in an array of a struct element with the spell name and an integer indicating whether it was used or no.
 After finishing the implementation of phase 1 and to be able to move onto phase 2 we tried to find as many bugs as we can and fixed them to make phase 2 go as smoothly as possible.
-We started by separating the functions that were previously all in a main driver and added them to separate header files to organize them.However, during this process, the include statements got tangled up alongside the main function and the overwrite and multiple function declaration. Nonetheless, this problem was probably the least challenging one but one that we encountered until the end of our project.
+We started by separating the functions that were previously all in a main driver and added them to separate header files to organize them.However, during this process, the include statements got tangled up alongside the main function and the overwrite and multiple function declaration. Nonetheless, this problem was probably the least challenging one but one that we encountered until the end of our project.In addition to that, we also deleted multiple files and set up README, a file who has the project explanation.
 This allowed us to tackle the next step easily, the runtime problem.
-Previously the runtime of our project was extremely large, iterating through the array to find the spell, update it and then in the check move function. To solve it we made the implementation into a balanced BST with worst case runtime O(lgn) for search, the function that we will use the most. With that, most of the functions changed
-
-Solutions
+Previously the runtime of our project was extremely large, iterating through the array to find the spell, update it and then in the check move function. To solve it we made the implementation into a balanced BST with worst case runtime O(lgn) for search, the function that we will use the most. With that, most of the functions changed. We started by deleting the struct and array implementation and editing the functions already used to implement the BST.
+In addition to those changes, phase two adds a bot implementation with the difficulties mentioned above (easy, medium and hard).
+So, to recap, in phase two all the functions are in header files and some are deleted because of the BST implementation. Therefore, the files we have at this point are:
+The old ones from phase one:
+- runGame: we added a new function runGame2 to the file that uses the bot implementation depending on the difficulties. So no problems were encountered in this function at first. However after adding the bot, with the easy bot it asks for the first move then the difficulty level with the letter s that gave us a lot of problems. After consideration and seeing that this was the easy level, we decided to keep it to make the game easy for the player seeing that this problem was only encountered with the easy bot.
+- checkMove: the implementation is basically the same as the one in phase one but we just edited it to make it appropriate to a BST.
+- coinToss: this function wasn’t changed 
+And new ones:
+- BST: this header file includes all the BST implementation: 
+    1. node struct who has multiple parameters
+        1. Used to indicate whether the spell was already used or not
+        2. Pointers to the left and right children of the node
+        3. Height of a specific node
+        4. Character array indicating the spell in the specific node
+    2. newNode: this function creates a new node with the spell as input and allocates it to memory to be used throughout the whole program
+    3. Height: the function returns the height of a node
+    4. getBalance: the function returns the balance factor used to keep balance
+    5. Max: helper function to be used in the insert function 
+    6. leftRotate: function that performs left rotation and updates heights of the nodes
+    7. rightRotate: function that performs right rotation and updates heights of the nodes
+    8. Insert: function that inserts a node into a tree and checks the balance. This is the function that has the largest runtime in the implementation in case of rotation need
+    9. Search: recursive function that finds the spell in the tree
+    10. deleteNode: this function is the one who created the biggest amount of problems, deciding to delete sometimes and other times deciding against it. The problem was resolved after a few changes in a few lines.
+- createSpellsTree: file where the tree is created and printed
+    1. printInOrder: The spells still needed to be printed five on each line.So we decided to use an integer printed that gets incremented every time a new spell is printed and when it’s a multiple of five a new line is created. InOrder traversal is the one we used because it’s the one that respects the order in which the spells are in the file.
+    2. createAndPrintTree: This is the new iteration of createAndFill and getRowNumber but instead of inserting them in an array they are inserted in a BST.
+- freeTree: One of our laptops crashed unexpectedly. After some research we found out the freeing didn’t work as well as we thought in the delete function. So we implemented a new function to free the tree at the end of the program instead of freeing each node.
+- spellGame: To make the main driver more organized, we decided to put the actual game function with everything in an other header file with a function called theGame. Instead of having everything in the main driver and pass theGame as the only thing in the driver.
+Now onto the most important part of phase 2, the bot implementation.Our bot implementation immediately started with the difficulties. We started out by putting as many restrictions as we could building the hard bot first and just removing restrictions for the easier and medium one. We had difficulties making sure the easy wasn’t completely random and the medium wasn’t impossible  
+- easyBot: this was a relatively easy implementation. We had the main idea ready, knowing where to start was the hard part. We then decided that the best way to go was to find the spells with the last letter of the previous one and to choose one randomly. This gave the other player a big chance to win. So we needed to include a random number function to pick between the spells and to choose which one.The search function of the BST implementation was also modified to. After testing we found out that the bot was choosing the wrong spell on purpose
+Even though we based the easy function on the medium and hard ones.Implementing them was more challenging especially finding the middle ground with the medium bot.
+- mediumBot: We started by picking a number bar that kind of acts like the random pointer who picks a random number. This allows us to take the first spell below this point. We implemented this after the hardBot, so instead of checking how many are left, we pick the first one. So basically the middle ground.
+- hardBot: this bot uses a recursive function to traverse the BST. This way we make sure we’re going through the spells that start with the same letter. Then when the function is found we call compareSpells function that chooses the best spell, the one with the least amount of other spells that start with the last letter. If they are the same, then it checks if the spell was used before. During implementation, we couldn’t find a spell that satisfied the last letter condition so we decided to modify the traversal and make it an in-order traversal one. 
+After finishing, we added the specs and copied the test cases made during the whole project to make the code as complete as possible. 
+Finally, during the whole project process, we encountered mini GitHub problems and confusions such as merging crash problems that were solved by undoing commits after merging then undoing the merge.
