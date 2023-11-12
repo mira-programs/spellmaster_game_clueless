@@ -11,6 +11,10 @@ typedef struct node
     char *spell;
 } node;
 
+/*
+precondition: a char pointer to the spell (string) we want to add to the tree.
+postcondition: a new node containing the spell with nitialized needed data.
+*/
 node *newNode(char *s)
 {                                           // creates a new node. s is the spell being added
     node *n = (node *)malloc(sizeof(node)); // creates pointer to new node n and allocates memory
@@ -22,6 +26,10 @@ node *newNode(char *s)
     return n;
 }
 
+/*
+precondition: pointer to a node
+postcondition: if the node doesn't exist (if the pointer is a null pointer) the height is 0, otherwise we give back the height from the node's data.
+*/
 int height(node *n)
 { // gets the height of a node
     if (n == NULL)
@@ -29,6 +37,10 @@ int height(node *n)
     return n->height;
 }
 
+/*
+precondition: 
+postcondition:
+*/
 int getBalance(node *n)
 { // calculates balance factor of node n
     if (n == NULL)
@@ -36,11 +48,19 @@ int getBalance(node *n)
     return height(n->left) - height(n->right);
 }
 
+/*
+precondition:
+postcondition:
+*/
 int max(int a, int b)
 {                           // max function, used to calculate height in insert function
     return (a > b) ? a : b; // returns the max of the two integers
 }
 
+/*
+precondition:
+postcondition:
+*/
 node *leftRotate(node *x)
 { // left-roation performed on (sub)tree of root x
     // creating pointers to the relevent subtrees/nodes
@@ -56,6 +76,10 @@ node *leftRotate(node *x)
     return y; // returns y, the new root
 }
 
+/*
+precondition:
+postcondition:
+*/
 node *rightRotate(node *y)
 { // right-rotation performed on subtree of root y
     // creating pointers to the relevant subtrees/nodes
@@ -73,6 +97,10 @@ node *rightRotate(node *y)
     return x; // returns x, the new root
 }
 
+/*
+precondition:
+postcondition:
+*/
 node *insert(node *root, char *spell)
 { // recursively insert a new node, passing root node and the spell to add
     // normal insertion of the node in the right place
@@ -109,6 +137,9 @@ node *insert(node *root, char *spell)
     return root; // returns the root pointer
 }
 
+/*
+
+*/
 node *search(node *root, char *spell)
 { // recursive search function to find a spell in the tree
     if (root == NULL || strcmp(root->spell, spell) == 0)
