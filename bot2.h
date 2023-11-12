@@ -18,13 +18,13 @@ int compareSpells(node *a, node *b, int spellsLeft[])
     else return (a->used > b->used) ? -1 : 1; //if a is used, return b, else return a 
 }
 
-node *botMakeMoveHelper(node *root, char prev, int spellsLeft[], node *best)
+node *MediumBotMoveHelper(node *root, char prev, int spellsLeft[], node *best)
 {
     if (root != NULL)
     {
 if (best->spell[0] != prev) best = root;
         // recursive call for left tree
-        best = botMakeMoveHelper(root->left, prev, spellsLeft, best);
+        best = MediumBotMoveHelper(root->left, prev, spellsLeft, best);
         
     
         if (root->spell[0] == prev && compareSpells(root, best, spellsLeft) > 0)
@@ -33,26 +33,12 @@ if (best->spell[0] != prev) best = root;
         }
 
         // recurvise call for right tree
-        best = botMakeMoveHelper(root->right, prev, spellsLeft, best);
+        best = MediumBotMoveHelper(root->right, prev, spellsLeft, best);
     }
     return best;
 }
 
-node *botMakeMove(node *root, char prev, int spellsLeft[])
+node *MediumBotMove(node *root, char prev, int spellsLeft[])
 {
-    return botMakeMoveHelper(root, prev, spellsLeft, root);
-}
-
-int main()
-{
-    int spellsLeft[26] = {0}; // creating and initiali zing array for spells count
-    node *root = createAndPrintTree("spells.txt", spellsLeft);
-    printf("\ncurrent spells count:\n");
-    for (int i = 0; i < 26; i++)
-    {
-        printf("Count for '%c': %d\n", 'a' + i, spellsLeft[i]);
-    }
-    node *move = botMakeMove(root, 's', spellsLeft);
-    printf("\nbot chose: %s\n", move->spell); 
-    return 0;
+    return MediumBotMoveHelper(root, prev, spellsLeft, root);
 }
