@@ -7,6 +7,14 @@
 #include "coinToss.h"
 #include "bot1.h"
 
+node* botMakeMove(node *root, char prev, int spellsLeft[]){
+    return botMakeMoveHelper(root, prev, spellsLeft, root);
+}
+
+node* botMakeMoveHelper(node* root, char prev, int spellLeft[], node* best){
+
+}
+
 //moderate bot: only check opponent's move.
 //will be copied into bot1 once it works.
 
@@ -25,6 +33,8 @@
             }
     }
 } */
+
+/*
 
 //make the bot choose a spell
 node *botMakesMove(node *root, char previousChar, int spellsLeft[]) {
@@ -74,7 +84,9 @@ node *botMakesMove(node *root, char previousChar, int spellsLeft[]) {
             }
         }
     }
-};
+}
+
+*/
 
 /*
 while (count <= spellsLeft[previousChar]) { //we'l keep looking as long as we haven't gone over all the spells that start with the letter "previousChar".
