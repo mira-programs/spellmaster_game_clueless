@@ -1,0 +1,59 @@
+Spell Master
+This strategy report shows the objectives, progress report, issues and solutions encountered by the team clueless composed of Mira Hussein, Haya Mouneimne and Mariam Sonji while building the spell master game.
+Objectives:
+Spell Master is a two-player game in which wizards battle by taking turns casting spells.The game can be played either against another player or a bit with different difficulty levels (easy, medium, hard) Players are provided with a list of spells they can choose from. Each player must continue to cast a spell that is more powerful than the one cast by the other player. For a spell to be more powerful, it should satisfy two requirements: it should not have been cast during the battle before, and the first character of the spell should be the same as the last character of the spell chosen in the previous round by the other player. 
+Rules:
+1. A spell may only be chosen from the provided list of spells.
+2. A spell may only be chosen once (repetitions are not allowed).
+3. With the exception of the first spell, every chosen spell’s first character must match the last character of the previously chosen spell.
+4. A player wins if their opponent fails to cast a spell satisfying the previously stated conditions (1-3). That is: 
+    1. if the opponent casts a spell that is not part of the provided list
+    2. if the opponent chooses a spell that has already been cast during the battle
+    3. if the opponent chooses a spell whose first character does not match the last character of the previously chosen spell
+    4. if the opponent runs out of spells that satisfy the matching characters condition
+5. The game ends if one of the players wins. Note that spells are formed of single words that begin and end with lower case characters and contain no spaces or special characters.
+Progress report:
+The project was divided into two phases: phase one and phase two.
+In phase one, the players were the two users, no bot implementation, we divided the workload into three main functions:
+- readSpells:
+    1. takes the name of a text file 
+    2. prints the spells in a table format with 5 words per line separated by tab spaces 
+    3. returns a (pointer to a) 2D array containing the spells from the file in one column and 1’s in the other 
+- tossCoin:
+    1. takes the player names as parameters 
+    2. randomly chooses either player 1 or player 2 to start 
+    3. returns the name of the player who will be starting
+A problem was encountered in this problem: the random (rand()) kept showing the same number every iteration. The problem turned out to be because of the seed so we imported the current time and gave it as a seed.
+- checkMove:
+    1. takes (a pointer to) the 2D array containing the spells, the previously used spell (or the last character of the spell), and the spell cast by the current player as parameters b) loops once through the 2D array containing the spells, comparing each spell to the spell cast 
+        1. if the spell is found, checks if the spell has been used before:
+            1. if the spell has been used before, the function returns “the spell has been used before! the current player loses!”
+            2. if the spell has not been used before, checks if the first character of the spell cast is the same the last character of the previously cast spell 
+            3. if the characters are the same, return “the spell case is valid. next player’s turn!” 
+            4. if the characters are different, return “the spell cast begins with the wrong character! the current player loses!
+        2. if the spell is not found, returns “the spell cast is not in the list! the current player loses!”
+Then we added helper functions, we removed readSpells and divided it into two functions createAndFill and getRowNumber
+- createAndFill:
+    1. Takes the file name and the number of spells
+    2. Iterated through the whole file and fills the struct array while putting the used 0 
+    3. Returns the array of elements / spells
+This was one of the most challenging parts because of the multiple segmentation errors that we encountered that took us a while to understand. The problem varied from stack overflow to wrong memory allocation and wrong use of variable (allocated memory for int instead char). The last one was the one that helped us the most and solved the problem.
+- printArray:
+    1. Takes the struct array and prints five elements on each line with a tab separating them
+- getRowNumber:
+    1. Iterates through the whole file
+    2. Get the number of lines 
+    3. Returns them to be used to create the array of the struct
+And the function that actually runs the game
+- runGame:
+    - The actual game function who uses all the functions above 
+    1. Takes the players in starting order, the array and the number of spells 
+    2. Uses the check move function in every iteration 
+    3. Keeps a variable result who tracks who is winning and who is losing
+The spells were implemented in an array of a struct element with the spell name and an integer indicating whether it was used or no.
+After finishing the implementation of phase 1 and to be able to move onto phase 2 we tried to find as many bugs as we can and fixed them to make phase 2 go as smoothly as possible.
+We started by separating the functions that were previously all in a main driver and added them to separate header files to organize them.However, during this process, the include statements got tangled up alongside the main function and the overwrite and multiple function declaration. Nonetheless, this problem was probably the least challenging one but one that we encountered until the end of our project.
+This allowed us to tackle the next step easily, the runtime problem.
+Previously the runtime of our project was extremely large, iterating through the array to find the spell, update it and then in the check move function. To solve it we made the implementation into a balanced BST with worst case runtime O(lgn) for search, the function that we will use the most. With that, most of the functions changed
+
+Solutions
