@@ -1,3 +1,6 @@
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "BST.h"
 
 int printInOrder(node *root, int printed, int spellCount)
