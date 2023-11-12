@@ -1,4 +1,4 @@
-#include "bot1.h"
+#include "bot2.h"
 /*
 Precondition: two strings of the players' names, a node pointer to the BST root and array of the number of spells left depending on the letter of size 26
 Postcondition: return 0 if player 1 wins and 1 if player 2 wins
