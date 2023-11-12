@@ -98,8 +98,8 @@ node *rightRotate(node *y)
 }
 
 /*
-precondition: 
-postcondition:
+precondition: node pointer to the root of the BST and a char pointer to the spell we wish to add.
+postcondition: inserts the spell in lexicographical order in the tree.
 */
 node *insert(node *root, char *spell)
 { // recursively insert a new node, passing root node and the spell to add
@@ -138,8 +138,8 @@ node *insert(node *root, char *spell)
 }
 
 /*
-precondition:
-postcondition:
+precondition: node pointer to the root of the tree and a char pointer to the spell we're looking for.
+postcondition: if the spell is in the tree, returns a node pointer to the node containing the spell, if it doesn't exist in the tree it returns null.
 */
 node *search(node *root, char *spell)
 { // recursive search function to find a spell in the tree
@@ -152,8 +152,8 @@ node *search(node *root, char *spell)
 }
 
 /*
-precondition:
-postcondition:
+precondition: node pointer to the root of the BST and a char pointer to the spell we wish to delete.
+postcondition: deletes the node containing the target spell from the tree and makes the right adjustments to both keep the height values correct and to fix any violations of the BST conditions that resulted from the deletion.
 */
 node *deleteNode(node *root, char *spell)
 {

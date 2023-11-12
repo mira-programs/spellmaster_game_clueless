@@ -1,4 +1,6 @@
-#include "bot2.h"
+//#include "bot2.h"
+#include "bot1_5.h"
+
 /*
 Precondition: two strings of the players' names, a node pointer to the BST root and array of the number of spells left depending on the letter of size 26
 Postcondition: return 0 if player 1 wins and 1 if player 2 wins
@@ -58,8 +60,29 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
 
         //HERE IS WHERE THE BOT MAKES A MOVE
 
+        //WE SHOULD ADD THE THREE DIFFICULTIES AS OPTIONS MAYBE THIS CODE? (BEFORE "printf("bot's tur!")"):
+        /*
+        printf(Please choose difficulty level: \n1. Easy \n2. Moderate \n3. Hard);
+        int difficuty;
+        scanf("%d", &difficulty);
+
+        if (difficulty == 1) {
+            BOT1 
+        }
+        else if (difficulty == 2) {
+            BOT1_5
+        }
+        else if (diffculty == 3) {
+            BOT2
+        }
+        else {
+            printf("Invalid difficulty. Please choose either 1 (easy), 2 (moderate) or 3 (hard)");
+        }
+        */
+
         //node *spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); EASY MODE
-        node *spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //medium mode
+        //node *spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //medium mode (now hard mode)
+        node *spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //moderate
         printf("bot chose: %s\n", spell->spell);
 
 
