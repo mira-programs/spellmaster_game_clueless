@@ -1,5 +1,4 @@
-#include "checkMove.h"
-
+#include "bot1.h"
 int runGame(char player1[], char player2[], node *spellsTreeRoot, int spellsLeft[])
 {
 
