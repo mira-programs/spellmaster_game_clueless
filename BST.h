@@ -62,7 +62,7 @@ precondition: node pointer; a BST in which one of the nodes violates the BST con
 postcondition: corrected BST in which every node's left child is smaller than it and every right child is larger than it. Correction is done by rotating the given node to the left.
 */
 node *leftRotate(node *x)
-{ // left-roation performed on (sub)tree of root x
+{ // left-rotation performed on (sub)tree of root x
     // creating pointers to the relevent subtrees/nodes
     node *y = x->right;
     node *T2 = y->left;
@@ -85,11 +85,9 @@ node *rightRotate(node *y)
     // creating pointers to the relevant subtrees/nodes
     node *x = y->left;
     node *T2 = x->right;
-
     // performing rotation
     x->right = y;
     y->left = T2;
-
     // updating heights
     y->height = max(height(y->left), height(y->right)) + 1;
     x->height = max(height(x->left), height(x->right)) + 1;
@@ -110,8 +108,8 @@ node *insert(node *root, char *spell)
         root->left = insert(root->left, spell); // insert to the left if the new spell comes first
     else
         root->right = insert(root->right, spell); // insert to the right if the root spell comes first
-
-    root->height = max(height(root->left), height(root->right)) + 1; // updating height of the root nodes
+    // updating height of the root nodes
+    root->height = max(height(root->left), height(root->right)) + 1; 
 
     // balancing the tree
     int balance = getBalance(root);
@@ -134,7 +132,7 @@ node *insert(node *root, char *spell)
         return leftRotate(root);
     }
 
-    return root; // returns the root pointer
+    return root; // returns the new root pointer
 }
 
 /*
@@ -160,52 +158,49 @@ node *deleteNode(node *root, char *spell)
     if (root == NULL)
         return root;
 
-    // If the key to be deleted is smaller than the
-    // root's key, then it lies in left subtree
+    // If the key to be deleted is smaller than the root's key, then it is in left subtree
     if (strcmp(spell, root->spell) < 0)
     {
         root->left = deleteNode(root->left, spell);
-        return root; // ADDED THOSE RETURN STATEMENTS
+        return root;
     }
 
-    // If the key to be deleted is greater than the
-    // root's key, then it lies in right subtree
+    // If the key to be deleted is greater than the root's key, then it is in right subtree
     else if (strcmp(spell, root->spell) > 0)
     {
         root->right = deleteNode(root->right, spell);
-        return root; // ANOTHER ONE
+        return root; 
     }
-    // if key is same as root's key, then This is
-    // the node to be deleted
+    // if key is same as root's key, then this is the node to be deleted
     else
     {
         // node with only one child or no child
         if ((root->left == NULL) || (root->right == NULL))
         {
-            node *temp = root->left ? root->right : root->left; // THOSE TWO WERE MIXED UP
+            node *temp = root->left ? root->right : root->left;
             // No child case
             if (temp == NULL)
             {
                 temp = root;
                 root = NULL;
             }
-            else               // One child case
-                *root = *temp; // Copy the contents of
-                               // the non-empty child
+            // One child case
+            else{
+                *root = *temp; // Copy the contents of the non-empty child
+            }
             return temp;
         }
         else
         {
-            // node with two children: Get the inorder
-            // successor (smallest in the right subtree)
+            // node with two children: Get the inorder successor (smallest in the right subtree)
             node *temp = root->right;
-            while (temp->right != NULL) // THERE WAS AN ERROR HERE SO USED JAVA LOGIC TO FIX IT
+            while (temp->right != NULL) 
             {
                 temp = temp->right;
             }
 
             // Copy the inorder successor's data to this node
-            strcpy(root->spell, temp->spell); // CANT PUT NORMAL EQUAL WITH ARRAYS, TRIED IT WITH STRING COPY
+            strcpy(root->spell, temp->spell); 
 
             // Delete the inorder successor
             root->right = deleteNode(root->right, temp->spell);
@@ -216,16 +211,13 @@ node *deleteNode(node *root, char *spell)
     if (root == NULL)
         return root;
 
-    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-    root->height = 1 + max(height(root->left),
-                           height(root->right));
+    // update height of current node
+    root->height = 1 + max(height(root->left), height(root->right));
 
-    // STEP 3: GET THE BALANCE FACTOR OF THIS NODE (to
-    // check whether this node became unbalanced)
+    // get balance factor (to check whether this node became unbalanced)
     int balance = getBalance(root);
-
-    // If this node becomes unbalanced, then there are 4 cases
-
+    // If this node becomes unbalanced, then there are 4 cases:
+   
     // Left Left Case
     if (balance > 1 && getBalance(root->left) >= 0)
         return rightRotate(root);

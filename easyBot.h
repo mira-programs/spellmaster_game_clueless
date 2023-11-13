@@ -34,18 +34,11 @@ node *modifiedSearch(node *root, char prev, int spellsLeft[])
 { 
 
     if (root == NULL)
-    {
-        fprintf(stderr, "Error: Root is NULL in modifiedSearch function.\n");
-        // exit the program
-        exit(EXIT_FAILURE);
-    }
-
-    if (root == NULL)
-        return NULL; // should never be reached, possible error. might need to add print error
-    if (root->left == NULL && root->right == NULL)
+        return NULL; // should never be reached, possible error, but included this line for ensuring
+    if (root->left == NULL && root->right == NULL) //if no children left, return root
         return root;
 
-    if (root->spell[0] == prev)
+    if (root->spell[0] == prev) //reached median of possible valid spells
     {
         int randnum;
         randnum = randomNum(1, spellsLeft[prev - 'a']); // random num to decide which of the spells to use
@@ -71,8 +64,8 @@ node *modifiedSearch(node *root, char prev, int spellsLeft[])
         }
         return root;
     }
-    else if (root->spell[0] > prev)
+    else if (root->spell[0] > prev) //case to go left
         return modifiedSearch(root->left, prev, spellsLeft);
-    else
+    else //case to go right
         return modifiedSearch(root->right, prev, spellsLeft);
 }

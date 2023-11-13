@@ -61,10 +61,9 @@ Test cases:
 */
 int totalSpellsLeft(int spellsLeft[]) {
     int total = 0;
-    for (int i = 0; i < ARRAY_SIZE(spellsLeft); i++) {
+    for (int i = 0; i < 26; i++) { //26 letters in the alphabet, size of array is 26
         total += spellsLeft[i];
     }
-
     return total;
 }
 
@@ -75,7 +74,7 @@ postcondition: gives back a node pointer to the node containing the best spell t
 node *ModerateBotMove(node *root, char prev, int spellsLeft[])
 {
     int total =  totalSpellsLeft(spellsLeft);
-    int bar = total % randomNum(0, 26);     //bar will be like a fictional bar which will be used as a comparison tool: we want to choose a spell that has fewer than "bar" spells.
+    int bar = total % randomNum(0, 26);     //bar used as a comparison tool: we want to choose a spell that has fewer than "bar" spells.
 
     return ModerateBotMoveHelper(root, prev, bar, spellsLeft, root);
 }

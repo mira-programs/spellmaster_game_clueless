@@ -16,7 +16,6 @@ int checkMove(node *spellTree, char previousChar, char *spell, int spellsLeft[])
         }
         else
         { // if spell was not cast before (valid)
-            // deleteNode(spellTree, move->spell); // deletes the spell from the tree
             move->used = 1;
             // this part updates the array keeping track of the spells left of each character
             char firstLetter = move->spell[0];
@@ -39,7 +38,7 @@ int checkMove(node *spellTree, char previousChar, char *spell, int spellsLeft[])
         }
     }
     else
-    { // if the spell is not found...
+    { // if the spell is not found
         printf("spell is not in the list! you lose!\n");
         return -1;
     }

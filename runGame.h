@@ -79,7 +79,6 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
     scanf("%s", move);
     int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
 
-
     while (result1 == 1)
     {
         printf("bot's turn!\n");

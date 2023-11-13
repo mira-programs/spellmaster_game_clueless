@@ -34,10 +34,10 @@ if (best->spell[0] != prev) best = root;
         // recursive call for left tree
         best = MediumBotMoveHelper(root->left, prev, spellsLeft, best);
         
-    
+        //comparing current root to last updated best choice of spell
         if (root->spell[0] == prev && compareSpells(root, best, spellsLeft) > 0)
         {
-            best = root;
+            best = root; //update best if root is better choice
         }
 
         // recurvise call for right tree

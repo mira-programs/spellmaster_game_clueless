@@ -52,12 +52,12 @@ node *createAndPrintTree(char *fileName, int spellsLeft[])
         char firstLetter = spell[0];
         if ('a' <= firstLetter && firstLetter <= 'z')
         {
-            // Update the count in the alphabet array
+            // increment the count in the alphabet array
             spellsLeft[firstLetter - 'a']++;
         }
     }
 
     fclose(filePointer); // closes the file
     printInOrder(root, 0, spellCount);
-    return root; // returns the root of the
+    return root; // returns the root of the spells tree
 }
