@@ -1,23 +1,24 @@
 #include "hardBot.h"
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 /*
 precondition: node pointer to the node we wish to compare, an integer value and the spellsLeft array.
 postcondition: will return 1 if the amount of spells left starting with the last letter of the spell in the given node is less than the bar. Otherwise it will return -1.
 
-Test cases: 
+Test cases:
 1. The number of spells left is less than then bar: the function returns 1.
 2. The number of spells is equal to the bar: the function returns 1.
 3. The number of spells is larger than the bar: the function returns -1.
 */
 int compareBarSpell(node *a, int bar, int spellsLeft[])
 { // compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
-    char* spellA = a->spell;
+    char *spellA = a->spell;
     char ALastLetter = spellA[strlen(spellA) - 1];
 
-    if(spellsLeft[ALastLetter - 'a'] <= bar){ //compare the amount of spells left to the bar.
+    if (spellsLeft[ALastLetter - 'a'] <= bar)
+    { // compare the amount of spells left to the bar.
         return 1;
-    }else //if (spellsLeft[ALastLetter - 'a'] > bar)
+    }
+    else // if (spellsLeft[ALastLetter - 'a'] > bar)
         return -1;
 }
 
@@ -34,15 +35,44 @@ node *ModerateBotMoveHelper(node *root, char prev, int bar, int spellsLeft[], no
 {
     if (root != NULL)
     {
-if (best->spell[0] != prev) best = root;
+        if (best->spell[0] != prev) // updating if best is still at an initial value (not right start char)
+            best = root;
+
+        if (prev == ' ')
+        { // if bot is making first move, pick any first spell that is below the bar
+            while (compareBarSpell(best, bar, spellsLeft) <= 0)
+            { // as long as best spell is not below bar yet
+                if (root->left == NULL && root->right == NULL)
+                    break; // nowhere else to go, pick the root spell
+                if (root->left == NULL)
+                    root = root->right; // can't go left, go right
+                else if (root->right == NULL)
+                    root = root->left; // can't go right, go left
+                else
+                { // can go either way, random choice
+                    if (coinToss() == 0)
+                    {
+                        root = root->right;
+                    }
+                    else
+                    {
+                        root = root->left;
+                    }
+                }
+                if(compareBarSpell(root, bar, spellsLeft) > 0){
+                    best = root;
+                }
+            }
+            return best;
+        }
+
         // recursive call for left tree
         best = ModerateBotMoveHelper(root->left, prev, bar, spellsLeft, best);
-        
-    
+
         if (root->spell[0] == prev && compareBarSpell(root, bar, spellsLeft) > 0)
         {
             best = root;
-            return best;        //we don't want to check further; return the first one that is below the bar.
+            return best; // we don't want to check further; return the first one that is below the bar.
         }
 
         // recurvise call for right tree
@@ -57,8 +87,8 @@ postcondition: gives back a node pointer to the node containing the best spell t
 */
 node *ModerateBotMove(node *root, char prev, int spellsLeft[])
 {
-    int total =  totalSpellsLeft(spellsLeft);
-    int bar = total % randomNum(0, 26);     //bar used as a comparison tool: we want to choose a spell that has fewer than "bar" spells.
+    int total = totalSpellsLeft(spellsLeft);
+    int bar = total % randomNum(0, 26); // bar used as a comparison tool: we want to choose a spell that has fewer than "bar" spells.
 
     return ModerateBotMoveHelper(root, prev, bar, spellsLeft, root);
 }
