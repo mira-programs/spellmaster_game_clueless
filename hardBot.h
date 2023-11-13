@@ -38,8 +38,11 @@ if (best->spell[0] != prev) best = root;
         if (root->spell[0] == prev && compareSpells(root, best, spellsLeft) > 0)
         {
             best = root; //update best if root is better choice
+        }else if(prev == ' ') {//bot is making first move, so pick spell with least counterspells
+            if(compareSpells(root, best, spellsLeft) > 0){
+                best = root;
+            }
         }
-
         // recurvise call for right tree
         best = MediumBotMoveHelper(root->right, prev, spellsLeft, best);
     }
