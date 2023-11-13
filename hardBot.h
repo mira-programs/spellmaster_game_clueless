@@ -6,20 +6,23 @@
 #include "easyBot.h"
 
 /*
-precondition: two node pointers to two different possible spells, an array of integers (stores the number of spells left for each letter). 
+precondition: two node pointers to two different possible spells, an array of integers (stores the number of spells left for each letter).
 postcondition: will return which spell is the better choice out of the two: if it's the first one (a), it will return 1 and if it's b it'll return -1. In the case where they're both the same, check the used variables of each: if both were used or none were used give back the first one, if one of them wasn't used give back the non-used one.
 */
 int compareSpells(node *a, node *b, int spellsLeft[])
 { // compare spells; if a > b, returns 1, a < b, returns -1, else returns 0
-    char* spellA = a->spell;
-    char* spellB = b->spell;
+    char *spellA = a->spell;
+    char *spellB = b->spell;
     char ALastLetter = spellA[strlen(spellA) - 1];
     char BLastLetter = spellB[strlen(spellB) - 1];
-    if(spellsLeft[ALastLetter - 'a'] < spellsLeft[BLastLetter - 'a']){
+    if (spellsLeft[ALastLetter - 'a'] < spellsLeft[BLastLetter - 'a'])
+    {
         return 1;
-    }else if (spellsLeft[ALastLetter - 'a'] > spellsLeft[BLastLetter - 'a'])
+    }
+    else if (spellsLeft[ALastLetter - 'a'] > spellsLeft[BLastLetter - 'a'])
         return -1;
-    else return (a->used > b->used) ? -1 : 1; //if a is used, return b, else return a 
+    else
+        return (a->used > b->used) ? -1 : 1; // if a is used, return b, else return a
 }
 
 /*
@@ -30,16 +33,20 @@ node *MediumBotMoveHelper(node *root, char prev, int spellsLeft[], node *best)
 {
     if (root != NULL)
     {
-if (best->spell[0] != prev) best = root;
+        if (prev != ' ' && best->spell[0] != prev)
+            best = root;
         // recursive call for left tree
         best = MediumBotMoveHelper(root->left, prev, spellsLeft, best);
-        
-        //comparing current root to last updated best choice of spell
+
+        // comparing current root to last updated best choice of spell
         if (root->spell[0] == prev && compareSpells(root, best, spellsLeft) > 0)
         {
-            best = root; //update best if root is better choice
-        }else if(prev == ' ') {//bot is making first move, so pick spell with least counterspells
-            if(compareSpells(root, best, spellsLeft) > 0){
+            best = root; // update best if root is better choice
+        }
+        else if (prev == ' ')
+        { // bot is making first move, so pick spell with least counterspells
+            if (compareSpells(root, best, spellsLeft) > 0)
+            {
                 best = root;
             }
         }
