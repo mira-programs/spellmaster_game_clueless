@@ -14,6 +14,11 @@ typedef struct node
 /*
 precondition: a char pointer to the spell (string) we want to add to the tree.
 postcondition: a new node containing the spell with nitialized needed data.
+
+Test cases:
+1. It's given an empty char pointer: creates a node with an empty spell. 
+2. It's given one character in the character pointer: creates a new node with its spell set to the one character.
+3. It's given a string (passed as an array of characters): creates a new node whose spell is the string passed as an argument.
 */
 node *newNode(char *s)
 {                                           // creates a new node. s is the spell being added
@@ -29,6 +34,10 @@ node *newNode(char *s)
 /*
 precondition: pointer to a node
 postcondition: if the node doesn't exist (if the pointer is a null pointer) the height is 0, otherwise we give back the height from the node's data.
+
+Test cases:
+1. The given node is a null (nonexistent) node: returns 0.
+2. The given node exists: reads its height and returns it.
 */
 int height(node *n)
 { // gets the height of a node
@@ -40,6 +49,13 @@ int height(node *n)
 /*
 precondition: node pointer.
 postcondition: will return the balance of the tree starting from the given node.
+
+Test cases:
+1. The given node is a null (nonexistent) node: returns 0.
+2. The given node exists: returns the balance by calculating the height difference between the left and right subtrees:
+    a. Same heights: returns 0.
+    b. Left height is larger than right height: returns a positive integer.
+    c. Right height is larger than left height: returns a negative integer.
 */
 int getBalance(node *n)
 { // calculates balance factor of node n
@@ -51,6 +67,11 @@ int getBalance(node *n)
 /*
 precondition: given two integers a and b.
 postcondition: returns which of the two (a or b) is larger (the maximum out of the two).
+
+Test cases:
+1. a > b: returns a.
+2. a = b: returns b.
+3. a < b: returns b.
 */
 int max(int a, int b)
 {                           // max function, used to calculate height in insert function
@@ -58,8 +79,12 @@ int max(int a, int b)
 }
 
 /*
-precondition: node pointer; a BST in which one of the nodes violates the BST conditions or on unbalanced trees.
+precondition: node pointer; a BST in which one of the nodes violates the BST conditions or on unbalanced trees; given tree has to be non-empty; given node shouldn't be a leaf node
 postcondition: corrected BST in which every node's left child is smaller than it and every right child is larger than it. Correction is done by rotating the given node to the left.
+
+Test cases:
+1. Rotating an internal node: the given node becomes its right child's left child; its new right child becomes its previous right child's left child; gives back the new 'x' node.
+2. Rotating the root node: Works same as rotating an internal node; gives back the new root.
 */
 node *leftRotate(node *x)
 { // left-rotation performed on (sub)tree of root x
@@ -77,8 +102,12 @@ node *leftRotate(node *x)
 }
 
 /*
-precondition: node pointer; a BST in which one of the nodes violates the BST conditions or on unbalanced trees.
+precondition: node pointer; a BST in which one of the nodes violates the BST conditions or on unbalanced trees; the given tree has to be non-empty; given node shouldn't be a leaf node.
 postcondition: corrected BST in which every node's left child is smaller than it and every right child is larger than it. Correction is done by rotating the given node to the right.
+
+Test cases: 
+1. Rotating an internal node: the given node becomes its left child's right child; its left child becomes its previous left child's right child.
+2. Rotating the root node: same as rotating an internal node: gives back the new root.
 */
 node *rightRotate(node *y)
 { // right-rotation performed on subtree of root y
@@ -96,8 +125,13 @@ node *rightRotate(node *y)
 }
 
 /*
-precondition: node pointer to the root of the BST and a char pointer to the spell we wish to add.
+precondition: node pointer to the root of the BST and a char pointer to the spell we wish to add; the spell shouldn't be a duplicate to one already in the tree.
 postcondition: inserts the spell in lexicographical order in the tree.
+
+Test cases:
+1. The given root node is null (nonexistent) (tree is empty) : creates a newNode and returns it.
+2. The given spell's lexicographic position is before the root node: inserts to the left.
+3. The given spell's lexicographic position is after the root node: insert tot he right.
 */
 node *insert(node *root, char *spell)
 { // recursively insert a new node, passing root node and the spell to add
@@ -138,6 +172,12 @@ node *insert(node *root, char *spell)
 /*
 precondition: node pointer to the root of the tree and a char pointer to the spell we're looking for.
 postcondition: if the spell is in the tree, returns a node pointer to the node containing the spell, if it doesn't exist in the tree it returns null.
+
+Test cases:
+1. The given root node is null (nonexistent): returns null (the root itself).
+2. The given root's spell matches the target spell: returns the root.
+3. The given spell comes before the root's lexicographically: searches in the left subtree.
+4. The given spell comes after the root's lexicographically: searches in the right subtree.
 */
 node *search(node *root, char *spell)
 { // recursive search function to find a spell in the tree
@@ -152,6 +192,12 @@ node *search(node *root, char *spell)
 /*
 precondition: node pointer to the root of the BST and a char pointer to the spell we wish to delete.
 postcondition: deletes the node containing the target spell from the tree and makes the right adjustments to both keep the height values correct and to fix any violations of the BST conditions that resulted from the deletion.
+
+Test cases:
+1. If the root node is null (nonexistent): there's nothing to delete; returns the root itself.
+2. If the target spell comes before the root's spell lexicographically: calls deleteNode on the left subtree, and keeps going (checking spell's position in regards tot he given node) until the target spell is reached.
+3. If the target spell comes after the root's spell lexicographically: calls deleteNode on the right subtree and keeps going (checking spell's postition in regards to the node) until the target spell is reached.
+4. If the root node's spell matches the target spell: return the root
 */
 node *deleteNode(node *root, char *spell)
 {
