@@ -1,4 +1,4 @@
-//#include "hardBot.h"
+// #include "hardBot.h"
 #include "mediumBot.h"
 
 /*
@@ -15,7 +15,6 @@ int runGame(char player1[], char player2[], node *spellsTreeRoot, int spellsLeft
     printf("\n%s starts!\nEnter your first move: ", player1);
     scanf("%s", move);
     int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
-    // int result1 = checkMove(spell, row, prev, move);
 
     // continuing the game with second player
     while (result1 == 1)
@@ -54,67 +53,141 @@ int runGame2(char player1[], node *spellsTreeRoot, int spellsLeft[])
     node *spell;
     int difficulty;
     bool isChosen = false;
-    while (!isChosen) {
+    while (!isChosen)
+    {
         printf("Please choose difficulty level: \n1. Easy \n2. Medium \n3. Hard \nI choose: ");
         scanf("%d", &difficulty);
 
-        if (difficulty == 1) {
-            spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); //EASY MODE
+        if (difficulty == 1)
+        {
+            spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); // EASY MODE
             isChosen = true;
         }
-        else if (difficulty == 2) {
-            spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //MEDIUM MODE
+        else if (difficulty == 2)
+        {
+            spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); // MEDIUM MODE
             isChosen = true;
         }
-        else if (difficulty == 3) {
-            spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //HARD MODE
+        else if (difficulty == 3)
+        {
+            spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); // HARD MODE
             isChosen = true;
         }
-        else {
+        else
+        {
             printf("Invalid difficulty. Please choose either 1 (easy), 2 (medium) or 3 (hard) \n");
         }
     }
 
-    printf("%s\nEnter your first move: ", player1);
-    scanf("%s", move);
-    int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
-
-    while (result1 == 1)
+    // tossing the coin to decide if player  or bot begins
+    int toss = coinToss();
+    if (toss == 0)
     {
-        printf("bot's turn!\n");
-        prev = move[strlen(move) - 1];
+        printf("player begins!\n");
+        // allow player to make the first move
+        printf("%s\nEnter your first move: ", player1);
+        scanf("%s", move);
+        int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
 
-        //HERE IS WHERE THE BOT MAKES A MOVE
-
-        if (difficulty == 1) {
-            spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); //EASY MODE
-        }
-        else if (difficulty == 2) {
-            spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); //MEDIUM MODE
-        }
-        else {
-            spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); //HARD MODE
-        }
-        
-        printf("bot chose: %s\n", spell->spell);
-
-
-        int result2 = checkMove(spellsTreeRoot, prev, spell->spell, spellsLeft);
-        prev = spell->spell[strlen(spell->spell) - 1];
-
-        if (result2 == -1)
+        while (result1 == 1)
         {
-            printf("bot loses! %s wins! congratulations!", player1);
-            return 0; // player 1 wins
+            printf("bot's turn!\n");
+            prev = move[strlen(move) - 1];
+
+            // HERE IS WHERE THE BOT MAKES A MOVE
+
+            if (difficulty == 1)
+            {
+                spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); // EASY MODE
+            }
+            else if (difficulty == 2)
+            {
+                spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); // MEDIUM MODE
+            }
+            else
+            {
+                spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); // HARD MODE
+            }
+
+            printf("bot chose: %s\n", spell->spell);
+
+            int result2 = checkMove(spellsTreeRoot, prev, spell->spell, spellsLeft);
+            prev = spell->spell[strlen(spell->spell) - 1];
+
+            if (result2 == -1)
+            {
+                printf("bot loses! %s wins! congratulations!", player1);
+                return 0; // player 1 wins
+            }
+            else
+            {
+                printf("%s!\nEnter your next move: ", player1);
+                scanf("%s", move);
+                result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
+                prev = move[strlen(move) - 1];
+            }
+        }
+        printf("%s loses! bot wins!", player1);
+    }
+    else // bot makes first move
+    {
+        printf("bot begins!\n");
+        // allow bot to make the first move
+        if (difficulty == 1)
+        {
+            spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); // EASY MODE
+        }
+        else if (difficulty == 2)
+        {
+            spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); // MEDIUM MODE
         }
         else
         {
-            printf("%s!\nEnter your next move: ", player1);
-            scanf("%s", move);
-            result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
-            prev = move[strlen(move) - 1];
+            spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); // HARD MODE
         }
+        printf("bot chose: %s\n", spell->spell);
+        int result2 = checkMove(spellsTreeRoot, prev, spell->spell, spellsLeft);
+
+        while (result2 == 1)
+        {
+            printf("your turn %s!\n", player1);
+            prev = spell->spell[strlen(spell->spell) - 1];
+
+            // HERE IS WHERE THE player MAKES A MOVE
+
+            printf("%s\nEnter your next move: ", player1);
+            scanf("%s", move);
+            int result1 = checkMove(spellsTreeRoot, prev, move, spellsLeft);
+            prev = move[strlen(move) - 1];
+
+            if (result1 == -1)
+            {
+                printf("YOU lose %s! BOT wins! congratulations!", player1);
+                return 0; // player 1 loses
+            }
+            else
+            {
+                if (difficulty == 1)
+                {
+                    spell = modifiedSearch(spellsTreeRoot, prev, spellsLeft); // EASY MODE
+                }
+                else if (difficulty == 2)
+                {
+                    spell = ModerateBotMove(spellsTreeRoot, prev, spellsLeft); // MEDIUM MODE
+                }
+                else
+                {
+                    spell = MediumBotMove(spellsTreeRoot, prev, spellsLeft); // HARD MODE
+                }
+
+                printf("bot's turn! it chose: %s\n", spell->spell);
+
+                int result2 = checkMove(spellsTreeRoot, prev, spell->spell, spellsLeft);
+                prev = spell->spell[strlen(spell->spell) - 1];
+            }
+        }
+        printf("BOT loses! YOU win, %s!", player1);
     }
-    printf("%s loses! bot wins! congratulations!", player1);
+
     return 1;
 }
