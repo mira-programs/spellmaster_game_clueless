@@ -17,7 +17,6 @@ void theGame()
     printf("below is a list of spells you may use:\n");
     int spellsLeft[26] = {0}; // creating and initializing array for spells count
     node *spellsTreeRoot = createAndPrintTree("spells.txt", spellsLeft);
-    int randNum = coinToss();
     printf("Do you want to play against 1. A friend or 2. A bot? ");
     int choice;
     scanf("%d", &choice);
@@ -25,10 +24,12 @@ void theGame()
     {
         // inputting player 2 name
         char player2[20];
+        
         printf("Player 2, enter your name: ");
         scanf("%s", player2);
 
         // tossing the coin to decide which player begins, and starting the game accordingly
+        int randNum = coinToss();
         if (randNum == 0)
             runGame(player1, player2, spellsTreeRoot, spellsLeft);
         else

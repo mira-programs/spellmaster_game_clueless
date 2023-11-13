@@ -15,7 +15,7 @@ int compareBarSpell(node *a, int bar, int spellsLeft[])
     char* spellA = a->spell;
     char ALastLetter = spellA[strlen(spellA) - 1];
 
-    if(spellsLeft[ALastLetter - 'a'] <= bar){       //compare the amount of spells left to the bar.
+    if(spellsLeft[ALastLetter - 'a'] <= bar){ //compare the amount of spells left to the bar.
         return 1;
     }else //if (spellsLeft[ALastLetter - 'a'] > bar)
         return -1;
@@ -49,22 +49,6 @@ if (best->spell[0] != prev) best = root;
         best = ModerateBotMoveHelper(root->right, prev, bar, spellsLeft, best);
     }
     return best;
-}
-
-/*
-precondition: an array of integers.
-postcondition: the total amount of spells that haven't yet been used.
-
-Test cases:
-1. Before using any spell: gives back the total amount of spells originally (here 78).
-2. After having used spells: gives back amount of spells left (unused).
-*/
-int totalSpellsLeft(int spellsLeft[]) {
-    int total = 0;
-    for (int i = 0; i < 26; i++) { //26 letters in the alphabet, size of array is 26
-        total += spellsLeft[i];
-    }
-    return total;
 }
 
 /*
